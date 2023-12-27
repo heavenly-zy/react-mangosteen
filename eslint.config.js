@@ -26,4 +26,7 @@ export default antfu({
     './fixtures',
     // ...globs
   ],
+  rules: {
+    "react/no-unknown-property": 0
+  }
 })
