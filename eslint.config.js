@@ -15,6 +15,7 @@ export default antfu({
   typescript: true,
   vue: true,
   react: true,
+  unocss: true,
 
   // Disable jsonc and yaml support
   jsonc: false,
