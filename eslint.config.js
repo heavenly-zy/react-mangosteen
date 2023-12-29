@@ -8,7 +8,7 @@ export default antfu({
   stylistic: {
     indent: 2,
     quotes: 'single',
-    semi: false,
+    semi: false
   },
 
   // TypeScript and Vue are auto-detected, you can also explicitly enable them:
@@ -27,6 +27,8 @@ export default antfu({
     // ...globs
   ],
   rules: {
-    "react/no-unknown-property": 0
+    "react/no-unknown-property": "off",
+    "antfu/top-level-function": "off",
+    "curly": "off"
   }
 })
