@@ -1,4 +1,5 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import logo from '../assets/images/logo.svg'
 
 const linkMap = {
@@ -9,6 +10,13 @@ const linkMap = {
 }
 
 export const WelcomeLayout: React.FC = () => {
+  const location = useLocation()
+  const pathname = location.pathname as keyof typeof linkMap
+  const [nextPage, setNextPage] = useState(linkMap[pathname])
+
+  useEffect(() => {
+    setNextPage(linkMap[pathname])
+  }, [pathname])
   return (
     <div bg="#5f34bf" h-screen flex flex-col pb-16px>
       <header shrink-0 text-center pt-64px>
@@ -19,7 +27,7 @@ export const WelcomeLayout: React.FC = () => {
         <Outlet />
       </main>
       <footer className="grid grid-cols-3 grid-rows-1 shrink-0 text-center text-24px text-#ffffff">
-        <Link style={{ gridArea: '1 / 2 / 2 / 3' }} to={linkMap[location.pathname as keyof typeof linkMap]}>下一页</Link>
+        <Link style={{ gridArea: '1 / 2 / 2 / 3' }} to={nextPage}>下一页</Link>
         <Link style={{ gridArea: '1 / 3 / 2 / 3' }} to="/start">跳过</Link>
       </footer>
     </div>
