@@ -8,7 +8,7 @@ const linkMap: { [k: string]: string } = {
   '/welcome/1': '/welcome/2',
   '/welcome/2': '/welcome/3',
   '/welcome/3': '/welcome/4',
-  '/welcome/4': '/start',
+  '/welcome/4': '/home',
 }
 
 export const WelcomeLayout: React.FC = () => {
@@ -59,7 +59,7 @@ export const WelcomeLayout: React.FC = () => {
       </main>
       <footer className="grid grid-cols-3 grid-rows-1 shrink-0 text-center text-24px text-#ffffff">
         <Link style={{ gridArea: '1 / 2 / 2 / 3' }} to={linkMap[location.pathname]}>下一页</Link>
-        <Link style={{ gridArea: '1 / 3 / 2 / 3' }} to="/start">跳过</Link>
+        <Link style={{ gridArea: '1 / 3 / 2 / 3' }} to="/home">跳过</Link>
       </footer>
     </div>
   )
