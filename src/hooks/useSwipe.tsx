@@ -30,8 +30,7 @@ export const useSwipe = (elementRef: RefObject<HTMLElement | null>, config?: Con
   }, [config])
   useEffect(() => {
     const element = elementRef.current
-    if (!element)
-      return
+    if (!element) return
     element.addEventListener('touchstart', onTouchStart)
     element.addEventListener('touchmove', onTouchMove)
     element.addEventListener('touchend', onTouchEnd)

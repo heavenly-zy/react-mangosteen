@@ -3,6 +3,7 @@ import { animated, useTransition } from '@react-spring/web'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
 import logo from '../assets/images/logo.svg'
 import { useSwipe } from '../hooks/useSwipe'
+import { useLocalStore } from '../stores/useLocalStore'
 
 const linkMap: { [k: string]: string } = {
   '/welcome/1': '/welcome/2',
@@ -41,8 +42,9 @@ export const WelcomeLayout: React.FC = () => {
       nav(linkMap[location.pathname])
     }
   }, [direction, location.pathname, nav])
+  const { setIsReadWelcomes } = useLocalStore()
   const onSkip = () => {
-    localStorage.setItem('isReadWelcomes', 'yes')
+    setIsReadWelcomes(true)
   }
   return (
     <div bg="#5f34bf" h-screen flex flex-col pb-16px>
