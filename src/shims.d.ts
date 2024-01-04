@@ -10,5 +10,9 @@ declare module 'react' {
     after?: string
     shadow?: boolean
     bg?: string
+    rounded?: string
+    fixed?: boolean
+    w?: string
+    h?: string
   }
 }
