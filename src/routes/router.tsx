@@ -16,4 +16,5 @@ export const router = createBrowserRouter([
       welcomeRoutes,
     ],
   },
+  { path: '/items', element: <div>items</div> },
 ])
