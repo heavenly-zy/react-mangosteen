@@ -29,6 +29,7 @@ export default antfu({
   rules: {
     "react/no-unknown-property": "off",
     "antfu/top-level-function": "off",
-    "curly": "off"
+    "curly": "off",
+    "no-console": "off"
   }
 })
