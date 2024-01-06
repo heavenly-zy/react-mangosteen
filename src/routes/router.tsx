@@ -7,7 +7,7 @@ import { welcomeRoutes } from './welcomeRoutes'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Redirect /> },
-  { path: '/home', element: <Home /> },
+  { path: '/home', element: <Home title='首页' /> },
   {
     path: '/',
     element: <MainLayout />,

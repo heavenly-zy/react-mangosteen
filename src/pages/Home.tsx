@@ -1,10 +1,16 @@
 import useSWR from 'swr'
 import { Navigate } from 'react-router-dom'
 import { ajax } from '../lib/ajax'
+import { useTitle } from '../hooks/useTitle'
 import p from '@/assets/images/pig.svg'
 import add from '@/assets/icons/add.svg'
 
-export const Home: React.FC = () => {
+interface Props {
+  title?: string
+}
+
+export const Home: React.FC<Props> = (props) => {
+  useTitle(props.title)
   const { data: meData, isLoading: isLoadingMe } = useSWR('/api/v1/me', async path =>
     (await ajax.get<Resource<User>>(path)).data.resource)
   const { data: itemsData, isLoading: isLoadingItems } = useSWR(meData ? '/api/v1/items' : null, async path =>
@@ -13,7 +19,7 @@ export const Home: React.FC = () => {
   if (isLoadingMe || isLoadingItems) {
     return <div>加载中......</div>
   }
-  
+
   if (itemsData?.resources[0]) {
     return <Navigate to="/items" />
   }
