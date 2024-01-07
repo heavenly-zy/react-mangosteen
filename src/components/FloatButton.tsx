@@ -1,3 +1,5 @@
+import { Icon } from './Icon'
+
 export const FloatButton: React.FC = () => {
   return (
     <button
@@ -5,6 +7,7 @@ export const FloatButton: React.FC = () => {
       h-56px
       bg="#5C33BE"
       rounded="50%"
+      text="#ffffff"
       b-none
       fixed
       bottom-16px
@@ -13,9 +16,7 @@ export const FloatButton: React.FC = () => {
       justify-center
       items-center
     >
-      <svg w-24px h-24px fill="#ffffff">
-        <use xlinkHref="#add"></use>
-      </svg>
+      <Icon name="add" className="h-24px w-24px" />
     </button>
   )
 }
