@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import s from './Icon.module.scss'
 
-export type IconName = 'add'
+export type IconName = 'add' | 'loading'
 
 interface Props {
   className?: string
