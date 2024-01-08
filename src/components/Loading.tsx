@@ -20,9 +20,9 @@ const Div = styled.div`
   }
 `
 
-export const Loading: React.FC<Props> = ({ className = 'h-screen', message = '加载中……' }) => {
+export const Loading: React.FC<Props> = ({ className, message = '加载中……' }) => {
   return (
-    <Div className={className} flex flex-col justify-center items-center>
+    <Div className={className} c-h-screen flex flex-col justify-center items-center>
       <Icon name="loading" className="h-128px w-128px" />
       <p pt-8px text-lg>{message}</p>
     </Div>

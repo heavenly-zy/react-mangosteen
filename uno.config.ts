@@ -12,6 +12,11 @@ export default defineConfig({
   },
   shortcuts: {
   },
+  rules: [
+    ['c-h-screen', { height: '100vh' }, { layer: 'components' }],
+    [/^c-w-(.+)$/, ([, d]) => ({ width: d }), { layer: 'components' }],
+    [/^c-h-(.+)$/, ([, d]) => ({ height: d }), { layer: 'components' }],
+  ],
   safelist: [],
   presets: [
     presetUno(),
