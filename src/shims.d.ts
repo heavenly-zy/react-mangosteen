@@ -1,4 +1,4 @@
-import type { AttributifyAttributes } from 'unocss';
+import type { AttributifyAttributes } from 'unocss'
 
 declare module 'react' {
   interface HTMLAttributes<T> extends AttributifyAttributes {
@@ -12,6 +12,10 @@ declare module 'react' {
     bg?: string
     rounded?: string
     fixed?: boolean
+    w?: string
+    h?: string
+  }
+  interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     w?: string
     h?: string
   }

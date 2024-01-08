@@ -1,6 +1,3 @@
-import clsx from 'clsx'
-import s from './Icon.module.scss'
-
 export type IconName = 'add' | 'loading'
 
 interface Props {
@@ -10,7 +7,7 @@ interface Props {
 
 export const Icon: React.FC<Props> = ({ name, className }) => {
   return (
-    <svg className={clsx(className, s.icon)}>
+    <svg className={className} fill-current w="1.2em" h="1.2em">
       <use xlinkHref={`#${name}`}></use>
     </svg>
   )
