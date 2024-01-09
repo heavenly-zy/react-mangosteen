@@ -3,11 +3,12 @@ import { MainLayout } from '../layouts/MainLayout'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { Redirect } from '../components/Redirect'
 import { Home } from '../pages/Home'
+import { ItemsPage } from '../pages/ItemsPage'
 import { welcomeRoutes } from './welcomeRoutes'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Redirect /> },
-  { path: '/home', element: <Home title='首页' /> },
+  { path: '/home', element: <Home title="首页" /> },
   {
     path: '/',
     element: <MainLayout />,
@@ -16,5 +17,5 @@ export const router = createBrowserRouter([
       welcomeRoutes,
     ],
   },
-  { path: '/items', element: <div>items</div> },
+  { path: '/items', element: <ItemsPage /> },
 ])
