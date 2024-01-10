@@ -11,6 +11,7 @@ export default defineConfig({
   theme: {
   },
   shortcuts: {
+    'x-btn': 'h-48px w-100% bg-#5C33BE b-none text-#ffffff rounded-8px cursor-pointer',
   },
   rules: [
     ['c-h-screen', { height: '100vh' }, { layer: 'components' }],

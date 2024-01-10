@@ -28,7 +28,7 @@ export const ItemsList: React.FC<Props> = ({ items }) => {
         )}
       </ol>
       <div className="p-16px">
-        <button>加载更多</button>
+        <button className="x-btn">加载更多</button>
       </div>
     </div>
   )
