@@ -3,9 +3,9 @@ import {
   presetAttributify,
   presetIcons,
   presetTypography,
-  presetUno,
-  transformerAttributifyJsx,
+  presetUno
 } from 'unocss'
+import transformerAttributifyJsx from 'transformer-attributify-jsx-sg'
 
 export default defineConfig({
   theme: {
@@ -28,6 +28,8 @@ export default defineConfig({
     presetTypography(),
   ],
   transformers: [
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
     transformerAttributifyJsx(),
   ],
 })

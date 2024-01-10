@@ -38,6 +38,7 @@
     "sass": "1.69.5",
     "svgo": "3.2.0",
     "svgstore": "3.0.1",
+    "transformer-attributify-jsx-sg": "0.0.6",
     "typescript": "5.2.2",
     "unocss": "0.58.0",
     "vite": "5.0.8",

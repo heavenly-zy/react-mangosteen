@@ -52,17 +52,17 @@ export const WelcomeLayout: React.FC = () => {
         <img src={logo} w-64px />
         <h1 text="#D4D4EE" text-32px>山竹记账</h1>
       </header>
-      <main className="relative shrink-1 grow-1" ref={mainRef}>
+      <main relative shrink-1 grow-1 ref={mainRef}>
         {transitions((style, pathname) => (
-          <animated.div key={pathname} style={{ ...style, ...extraStyle }} className="h-100% w-100% flex p-16px">
-            <div className="flex grow-1 items-center justify-center rounded-8px bg-#ffffff">
+          <animated.div key={pathname} style={{ ...style, ...extraStyle }} h="100%" w="100%" flex p-16px>
+            <div flex grow-1 items-center justify-center rounded-8px bg="#ffffff">
               {map.current[pathname]}
             </div>
           </animated.div>
         ),
         )}
       </main>
-      <footer className="grid grid-cols-3 grid-rows-1 shrink-0 text-center text-24px text-#ffffff">
+      <footer grid grid-cols-3 grid-rows-1 shrink-0 text-center text-24px text="#ffffff">
         <Link style={{ gridArea: '1 / 2 / 2 / 3' }} to={linkMap[location.pathname]}>下一页</Link>
         <Link style={{ gridArea: '1 / 3 / 2 / 3' }} to="/home" onClick={onSkip}>跳过</Link>
       </footer>
