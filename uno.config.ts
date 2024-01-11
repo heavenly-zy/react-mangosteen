@@ -28,8 +28,6 @@ export default defineConfig({
     presetTypography(),
   ],
   transformers: [
-    // eslint-disable-next-line ts/ban-ts-comment
-    // @ts-expect-error
     transformerAttributifyJsx(),
   ],
 })
