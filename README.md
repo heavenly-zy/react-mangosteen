@@ -29,6 +29,44 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
+## 开发
+
+```bash
+# 克隆项目
+git clone git@github.com:heavenly-zy/react-mangosteen.git
+
+# 进入项目目录
+cd react-mangosteen
+
+# 安装依赖
+pnpm i
+
+# 启动服务
+pnpm dev
+```
+
+## 预览
+
+```bash
+pnpm preview
+```
+
+## 打包
+
+```bash
+pnpm build
+```
+
+## 代码检查
+
+```bash
+# 只检查
+pnpm dev
+
+# 检查并修复
+pnpm lint:fix
+```
+
 ## Git 提交规范参考
 
 - `feat` 增加新的业务功能
