@@ -3,6 +3,7 @@ import { type TimeRange, TimeRangePicker } from '../components/TimeRangePicker'
 import { FloatButton } from '../components/FloatButton'
 import { useMenuStore } from '../stores/useMenuStore'
 import { TopNav } from '../components/TopNav'
+import { TopMenu } from '../components/TopMenu'
 import { ItemsList } from './ItemsPage/ItemsList'
 import { ItemsSummary } from './ItemsPage/ItemsSummary'
 
@@ -40,7 +41,7 @@ export const ItemsPage: React.FC = () => {
       <ItemsSummary />
       <ItemsList items={items} />
       <FloatButton />
-      {visible ? <div>TopMenu</div> : null}
+      {visible ? <TopMenu /> : null}
     </div>
   )
 }
