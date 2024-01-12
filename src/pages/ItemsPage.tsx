@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { type TimeRange, TimeRangePicker } from '../components/TimeRangePicker'
 import { Topnav } from '../components/Topnav'
 import { FloatButton } from '../components/FloatButton'
-import { menuContext } from '../contexts/menuContext'
+import { useMenuStore } from '../stores/useMenuStore'
 import { ItemsList } from './ItemsPage/ItemsList'
 import { ItemsSummary } from './ItemsPage/ItemsSummary'
 
@@ -30,19 +30,17 @@ export const ItemsPage: React.FC = () => {
       updated_at: '2021-01-01T00:00:00.000Z',
     },
   ])
-  const [visible, setVisible] = useState(false)
+  const { visible } = useMenuStore()
   return (
     <div>
-      <menuContext.Provider value={{ visible, setVisible }}>
-        <div bg-gradient-to-b from="#5c33be" to="#8f4cd7">
-          <Topnav />
-          <TimeRangePicker selected={timeRange} onSelected={setTimeRange} />
-        </div>
-        <ItemsSummary />
-        <ItemsList items={items} />
-        <FloatButton />
-        {visible ? <div>TopMenu</div> : null}
-      </menuContext.Provider>
+      <div bg-gradient-to-b from="#5c33be" to="#8f4cd7">
+        <Topnav />
+        <TimeRangePicker selected={timeRange} onSelected={setTimeRange} />
+      </div>
+      <ItemsSummary />
+      <ItemsList items={items} />
+      <FloatButton />
+      {visible ? <div>TopMenu</div> : null}
     </div>
   )
 }
