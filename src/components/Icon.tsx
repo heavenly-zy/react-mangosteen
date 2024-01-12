@@ -3,11 +3,12 @@ export type IconName = 'add' | 'loading' | 'menu'
 interface Props {
   className?: string
   name: IconName
+  onClick?: (e: React.MouseEvent) => void
 }
 
-export const Icon: React.FC<Props> = ({ name, className }) => {
+export const Icon: React.FC<Props> = ({ name, className, onClick }) => {
   return (
-    <svg className={className} fill-current c-w="1.2em" c-h="1.2em">
+    <svg onClick={onClick} className={className} fill-current c-w="1.2em" c-h="1.2em">
       <use xlinkHref={`#${name}`}></use>
     </svg>
   )
