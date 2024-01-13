@@ -31,7 +31,7 @@ export const ItemsPage: React.FC = () => {
       updated_at: '2021-01-01T00:00:00.000Z',
     },
   ])
-  const { visible } = useMenuStore()
+  const { visible, setVisible } = useMenuStore()
   return (
     <div>
       <div bg-gradient-to-b from="#5c33be" to="#8f4cd7">
@@ -41,7 +41,7 @@ export const ItemsPage: React.FC = () => {
       <ItemsSummary />
       <ItemsList items={items} />
       <FloatButton />
-      {visible ? <TopMenu /> : null}
+      {visible ? <TopMenu onClickMask={() => setVisible(false)} /> : null}
     </div>
   )
 }
