@@ -17,7 +17,7 @@ export default defineConfig(({ command }) => ({
       mockPath: 'mock',
       enable: true,
     }),
-    svgSprites()
+    svgSprites({ noOptimizeList: ['chart', 'export', 'tag', 'notify'] })
   ],
   resolve: {
     alias: {
