@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { Icon } from '../Icon'
 
 interface Props {
@@ -9,6 +10,13 @@ const MenuIcon = styled(Icon)`
   width: 32px; height: 32px; margin-right: 16px;
 `
 
+const menuItems = [
+  { key: 'charts', icon: 'chart', text: '统计图表', to: '/charts' },
+  { key: 'export', icon: 'export', text: '导出数据', to: '/export' },
+  { key: 'tags', icon: 'tag', text: '自定义标签', to: '/tags' },
+  { key: 'notify', icon: 'notify', text: '记账提醒', to: '/notify' },
+] as const
+
 export const Menu: React.FC<Props> = ({ className }) => {
   return (
     <ul
@@ -16,28 +24,20 @@ export const Menu: React.FC<Props> = ({ className }) => {
       bg="#ffffff"
       text-20px
       py-16px
-      children-flex
-      children-items-center
       children-px-16px
       children-py-8px
       children-mb-4px
     >
-      <li>
-        <MenuIcon name="chart" />
-        统计图表
-      </li>
-      <li>
-        <MenuIcon name="export" />
-        导出数据
-      </li>
-      <li>
-        <MenuIcon name="tag" />
-        自定义标签
-      </li>
-      <li>
-        <MenuIcon name="notify" />
-        记账提醒
-      </li>
+      {
+        menuItems.map(i => (
+          <li key={i.key}>
+            <Link flex items-center to={i.to}>
+              <MenuIcon name={i.icon} />
+              {i.text}
+            </Link>
+          </li>
+        ))
+      }
     </ul>
   )
 }
