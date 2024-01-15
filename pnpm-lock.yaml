@@ -36,6 +36,9 @@ devDependencies:
   '@antfu/eslint-config':
     specifier: 2.4.5
     version: 2.4.5(@unocss/eslint-plugin@0.58.0)(@vue/compiler-sfc@3.4.8)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react-refresh@0.4.5)(eslint-plugin-react@7.33.2)(eslint@8.55.0)(typescript@5.2.2)
+  '@faker-js/faker':
+    specifier: 8.3.1
+    version: 8.3.1
   '@types/node':
     specifier: 20.10.5
     version: 20.10.5
@@ -895,6 +898,11 @@ packages:
   /@eslint/js@8.55.0:
     resolution: {integrity: sha512-qQfo2mxH5yVom1kacMtZZJFVdW+E70mqHMJvVg6WTLo+VBuQJ4TojZlfWBjK0ve5BdEeNAVxOsl/nvNMpJOaJA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: true
+
+  /@faker-js/faker@8.3.1:
+    resolution: {integrity: sha512-FdgpFxY6V6rLZE9mmIBb9hM0xpfvQOSNOLnzolzKwsE1DH+gC7lEKV1p1IbR0lAYyvYd5a4u3qWJzowUkw1bIw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: true
 
   /@humanwhocodes/config-array@0.11.14:
