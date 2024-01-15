@@ -18,7 +18,13 @@ const getKey = (pageIndex: number, prev: Resources<Item>) => {
 }
 const fetcher = async (path: string) => (await ajax.get<Resources<Item>>(path)).data
 export const ItemsList: React.FC = () => {
-  const { data, error, isLoading: isLoadingInitialData, size: page, setSize: setPage } = useSWRInfinite(getKey, fetcher)
+  const {
+    data,
+    error,
+    isLoading: isLoadingInitialData,
+    size: page,
+    setSize: setPage,
+  } = useSWRInfinite(getKey, fetcher, { revalidateFirstPage: false })
   const isLoadingMore = !error && data?.[page - 1] === undefined
 
   // 初次加载
