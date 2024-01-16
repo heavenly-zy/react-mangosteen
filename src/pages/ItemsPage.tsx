@@ -4,6 +4,7 @@ import { FloatButton } from '../components/FloatButton'
 import { useMenuStore } from '../stores/useMenuStore'
 import { TopNav } from '../components/TopNav'
 import { TopMenu } from '../components/TopMenu'
+import { Gradient } from '../components/Gradient'
 import { ItemsList } from './ItemsPage/ItemsList'
 import { ItemsSummary } from './ItemsPage/ItemsSummary'
 
@@ -12,10 +13,10 @@ export const ItemsPage: React.FC = () => {
   const { visible, setVisible } = useMenuStore()
   return (
     <div>
-      <div bg-gradient-to-b from="#5c33be" to="#8f4cd7">
+      <Gradient>
         <TopNav />
         <TimeRangePicker selected={timeRange} onSelected={setTimeRange} />
-      </div>
+      </Gradient>
       <ItemsSummary />
       <ItemsList />
       <FloatButton />
