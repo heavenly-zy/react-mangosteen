@@ -4,6 +4,7 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { Redirect } from '../components/Redirect'
 import { Home } from '../pages/Home'
 import { ItemsPage } from '../pages/ItemsPage'
+import { SignInPage } from '../pages/SignInPage'
 import { welcomeRoutes } from './welcomeRoutes'
 
 export const router = createBrowserRouter([
@@ -18,7 +19,7 @@ export const router = createBrowserRouter([
     ],
   },
   { path: '/items', element: <ItemsPage /> },
-  { path: '/sign-in', element: <div>登录</div> },
+  { path: '/sign-in', element: <SignInPage /> },
   { path: '/charts', element: <div>统计图表</div> },
   { path: '/export', element: <div>导出数据</div> },
   { path: '/tags', element: <div>自定义标签</div> },
