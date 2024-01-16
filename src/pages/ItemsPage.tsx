@@ -5,6 +5,7 @@ import { useMenuStore } from '../stores/useMenuStore'
 import { TopNav } from '../components/TopNav'
 import { TopMenu } from '../components/TopMenu'
 import { Gradient } from '../components/Gradient'
+import { Icon } from '../components/Icon'
 import { ItemsList } from './ItemsPage/ItemsList'
 import { ItemsSummary } from './ItemsPage/ItemsSummary'
 
@@ -14,7 +15,7 @@ export const ItemsPage: React.FC = () => {
   return (
     <div>
       <Gradient>
-        <TopNav />
+        <TopNav icon={<Icon name="menu" className="h-24px w-24px" onClick={() => { setVisible(!visible) }} />} />
         <TimeRangePicker selected={timeRange} onSelected={setTimeRange} />
       </Gradient>
       <ItemsSummary />
