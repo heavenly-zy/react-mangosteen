@@ -1,4 +1,4 @@
-export type IconName = 'add' | 'loading' | 'menu' | 'chart' | 'export' | 'tag' | 'notify' | 'back'
+export type IconName = 'add' | 'loading' | 'menu' | 'chart' | 'export' | 'tag' | 'notify' | 'back' | 'logo'
 
 interface Props {
   className?: string
