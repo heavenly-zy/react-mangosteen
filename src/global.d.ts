@@ -1,5 +1,7 @@
 declare const isDev: boolean
 
+type JSONValue = null | boolean | string | number | JSONValue[] | Record<string, JSONValue>
+
 interface Resource<T> {
   resource: T
 }

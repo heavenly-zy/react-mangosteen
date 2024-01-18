@@ -1,13 +1,19 @@
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
+import { validate } from '../lib/validate'
 import { useSignInStore } from '../stores/useSignInStore'
 
 export const SignInPage: React.FC = () => {
-  const { formData, setFormData } = useSignInStore()
+  const { formData, setFormData, errors, setErrors } = useSignInStore()
   const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    console.log(formData)
+    const _errors = validate(formData, [
+      { key: 'email', type: 'required', message: '请输入邮箱' },
+      { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱格式不正确' },
+      { key: 'code', type: 'required', message: '请输入验证码' },
+    ])
+    setErrors(_errors)
   }
   return (
     <div>
@@ -20,7 +26,10 @@ export const SignInPage: React.FC = () => {
       </div>
       <form x-form onSubmit={submitHandler}>
         <div>
-          <span x-form-label>邮箱地址</span>
+          <span x-form-label>
+            邮箱地址&emsp;
+            {errors.email?.[0] && <span text-red>{errors.email[0]}</span>}
+          </span>
           <input
             x-form-input
             type="text"
@@ -30,7 +39,10 @@ export const SignInPage: React.FC = () => {
           />
         </div>
         <div>
-          <span x-form-label>验证码</span>
+          <span x-form-label>
+            验证码&emsp;
+            {errors.code?.[0] && <span text-red>{errors.code[0]}</span>}
+          </span>
           <div flex gap-x-16px>
             <input
               x-form-input

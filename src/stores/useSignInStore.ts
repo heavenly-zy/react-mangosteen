@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import type { FormErrors } from '../lib/validate'
 
 interface FormData {
   email: string
@@ -8,6 +9,8 @@ interface FormData {
 interface SignInStore {
   formData: FormData
   setFormData: (formData: Partial<FormData>) => void
+  errors: FormErrors<FormData>
+  setErrors: (errors: Partial<FormErrors<FormData>>) => void
 }
 
 export const useSignInStore = create<SignInStore>(set => (
@@ -16,13 +19,17 @@ export const useSignInStore = create<SignInStore>(set => (
       email: '',
       code: '',
     },
-    setFormData: (formData) => {
+    setFormData(formData) {
       set(state => ({
-        formData: {
-          ...state.formData,
-          ...formData,
-        },
+        formData: { ...state.formData, ...formData },
       }))
+    },
+    errors: {
+      email: [],
+      code: [],
+    },
+    setErrors(errors) {
+      set(() => ({ errors }))
     },
   }
 ))
