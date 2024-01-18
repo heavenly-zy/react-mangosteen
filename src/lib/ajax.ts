@@ -6,7 +6,7 @@ axios.defaults.timeout = 10000
 
 export const ajax = {
   get: <T>(path: string) => axios.get<T>(path),
-  post: () => { },
+  post: <T>(path: string, data: JSONValue) => axios.post<T>(path, data),
   patch: () => { },
   delete: () => { },
 }
