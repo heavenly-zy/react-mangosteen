@@ -52,12 +52,13 @@ export const SignInPage: React.FC = () => {
           <div flex gap-x-16px>
             <input
               x-form-input
+              w="[calc(40%-8px)]"
               type="text"
               placeholder="六位数字"
               value={formData.code}
               onChange={e => setFormData({ code: e.target.value })}
             />
-            <button x-btn>发送验证码</button>
+            <button x-btn w="[calc(60%-8px)]">发送验证码</button>
           </div>
         </div>
         <div mt-100px>
