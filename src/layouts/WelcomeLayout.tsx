@@ -34,7 +34,7 @@ export const WelcomeLayout: React.FC = () => {
     },
   })
   const mainRef = useRef<HTMLElement>(null)
-  const { direction } = useSwipe(mainRef, { onTouchStart: e => e.preventDefault() })
+  const { direction } = useSwipe(mainRef, { beforeStart: e => e.preventDefault() })
   useEffect(() => {
     if (direction === 'left') {
       if (animating.current) return
