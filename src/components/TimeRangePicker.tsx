@@ -1,29 +1,11 @@
-import styled from 'styled-components'
+import { Tabs } from './Tabs'
 
 export type TimeRange = 'thisMonth' | 'lastMonth' | 'thisYear' | 'custom'
 
 interface Props {
   selected: TimeRange
-  onSelected: (selected: TimeRange) => void
+  onSelect: (selected: TimeRange) => void
 }
-
-const TimeRangeItem = styled.li<{ selected: boolean }>`
-  position: relative;
-  cursor: pointer;
-
-  ${props => props.selected && `
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: #ffffff;
-      opacity: 0.5;
-    }
-  `}
-`
 
 const timeRanges: { key: TimeRange, text: string }[] = [
   { key: 'thisMonth', text: '本月' },
@@ -32,18 +14,8 @@ const timeRanges: { key: TimeRange, text: string }[] = [
   { key: 'custom', text: '自定义时间' },
 ]
 
-export const TimeRangePicker: React.FC<Props> = ({ selected, onSelected }) => {
+export const TimeRangePicker: React.FC<Props> = ({ selected, onSelect }) => {
   return (
-    <ol flex text="#ffffff" children-px-24px children-py-12px>
-      {timeRanges.map(tr => (
-        <TimeRangeItem
-          key={tr.key}
-          selected={tr.key === selected}
-          onClick={() => onSelected(tr.key)}
-        >
-          {tr.text}
-        </TimeRangeItem>
-      ))}
-    </ol>
+    <Tabs tabItems={timeRanges} value={selected} onChange={onSelect} />
   )
 }
