@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 const TabItem = styled.li<{ selected: boolean }>`
   position: relative;
-  cursor: pointer;
 
   ${props => props.selected && `
     &::after {
