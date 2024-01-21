@@ -17,7 +17,7 @@ export const ItemsNewPage: React.FC = () => {
       </Gradient>
       <Tabs
         tabItems={tabItems}
-        className="bg-#8f4cd7 children-flex-1 children-text-center"
+        headerCentered
         value={tabItem}
         onChange={setTabItem}
       />

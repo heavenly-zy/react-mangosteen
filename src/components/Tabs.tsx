@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import clsx from 'clsx'
 
 const TabItem = styled.li<{ selected: boolean }>`
   position: relative;
@@ -22,12 +23,20 @@ interface Props<T> {
   value: T
   onChange: (key: T) => void
   className?: string
+  headerCentered?: boolean
 }
 
-export const Tabs = <T extends string>({ tabItems, value, onChange, className }: Props<T>) => {
+export const Tabs = <T extends string>({ tabItems, value, onChange, headerCentered = false, className }: Props<T>) => {
   return (
     <>
-      <ol className={className} flex text="#ffffff" children-px-24px children-py-12px>
+      <ol
+        className={clsx(`${headerCentered ? 'children-flex-1 children-text-center' : ''}`, className)}
+        bg="#8f4cd7"
+        flex
+        text="#ffffff"
+        children-px-24px
+        children-py-12px
+      >
         {tabItems.map(ti => (
           <TabItem
             key={ti.key}
@@ -38,7 +47,7 @@ export const Tabs = <T extends string>({ tabItems, value, onChange, className }:
           </TabItem>
         ))}
       </ol>
-      <div bg="blue">
+      <div>
         {tabItems.find(item => item.key === value)?.content}
       </div>
     </>

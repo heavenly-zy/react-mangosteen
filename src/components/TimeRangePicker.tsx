@@ -16,6 +16,6 @@ const timeRanges: { key: TimeRange, text: string }[] = [
 
 export const TimeRangePicker: React.FC<Props> = ({ selected, onSelect }) => {
   return (
-    <Tabs tabItems={timeRanges} value={selected} onChange={onSelect} className='bg-#8f4cd7' />
+    <Tabs tabItems={timeRanges} value={selected} onChange={onSelect} />
   )
 }
