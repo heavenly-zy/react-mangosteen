@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { Tabs } from '../components/Tabs'
+import { Tags } from './ItemsNewPage/Tags'
 
 export const ItemsNewPage: React.FC = () => {
   const tabItems = [
-    { key: 'expenses', text: '支出', content: <div>支出</div> },
-    { key: 'income', text: '收入', content: <div>收入</div> },
-  ] as const
-  const [tabItem, setTabItem] = useState<typeof tabItems[number]['key']>('expenses')
+    { key: 'expenses', text: '支出', content: <Tags kind="expenses" /> },
+    { key: 'income', text: '收入', content: <Tags kind="income" /> },
+  ] satisfies { key: ItemKind, text: string, content: React.ReactNode }[]
+  const [tabItem, setTabItem] = useState<ItemKind>('expenses')
   return (
     <div>
       <Gradient>
