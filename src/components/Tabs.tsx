@@ -18,23 +18,29 @@ const TabItem = styled.li<{ selected: boolean }>`
 `
 
 interface Props<T> {
-  tabItems: { key: T, text: string }[]
+  tabItems: Readonly<{ key: T, text: string, content?: React.ReactNode }[]>
   value: T
   onChange: (key: T) => void
+  className?: string
 }
 
-export const Tabs = <T extends string>({ tabItems, value, onChange }: Props<T>) => {
+export const Tabs = <T extends string>({ tabItems, value, onChange, className }: Props<T>) => {
   return (
-    <ol flex text="#ffffff" children-px-24px children-py-12px>
-      {tabItems.map(ti => (
-        <TabItem
-          key={ti.key}
-          selected={ti.key === value}
-          onClick={() => onChange(ti.key)}
-        >
-          {ti.text}
-        </TabItem>
-      ))}
-    </ol>
+    <>
+      <ol className={className} flex text="#ffffff" children-px-24px children-py-12px>
+        {tabItems.map(ti => (
+          <TabItem
+            key={ti.key}
+            selected={ti.key === value}
+            onClick={() => onChange(ti.key)}
+          >
+            {ti.text}
+          </TabItem>
+        ))}
+      </ol>
+      <div bg="blue">
+        {tabItems.find(item => item.key === value)?.content}
+      </div>
+    </>
   )
 }
