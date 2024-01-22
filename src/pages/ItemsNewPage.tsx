@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { Tabs } from '../components/Tabs'
 import { Tags } from './ItemsNewPage/Tags'
+import { DateAndAmount } from './ItemsNewPage/DateAndAmount'
 
 export const ItemsNewPage: React.FC = () => {
   const tabItems = [
@@ -22,6 +23,7 @@ export const ItemsNewPage: React.FC = () => {
         value={tabItem}
         onChange={setTabItem}
       />
+      <DateAndAmount />
     </div>
   )
 }
