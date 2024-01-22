@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import clsx from 'clsx'
 
 const TabItem = styled.li<{ selected: boolean }>`
   position: relative;
@@ -28,9 +27,9 @@ interface Props<T> {
 
 export const Tabs = <T extends string>({ tabItems, value, onChange, headerCentered = false, className }: Props<T>) => {
   return (
-    <>
+    <div className={className} flex flex-col>
       <ol
-        className={clsx(`${headerCentered ? 'children-flex-1 children-text-center' : ''}`, className)}
+        className={`${headerCentered ? 'children-flex-1 children-text-center' : ''}`}
         bg="#8f4cd7"
         flex
         text="#ffffff"
@@ -47,9 +46,9 @@ export const Tabs = <T extends string>({ tabItems, value, onChange, headerCenter
           </TabItem>
         ))}
       </ol>
-      <div>
+      <div overflow-auto>
         {tabItems.find(item => item.key === value)?.content}
       </div>
-    </>
+    </div>
   )
 }

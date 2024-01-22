@@ -13,11 +13,12 @@ export const ItemsNewPage: React.FC = () => {
   ] satisfies { key: ItemKind, text: string, content: React.ReactNode }[]
   const [tabItem, setTabItem] = useState<ItemKind>('expenses')
   return (
-    <div>
+    <div h-screen flex flex-col>
       <Gradient>
         <TopNav title="记一笔" icon={<Icon name="back" />} />
       </Gradient>
       <Tabs
+        className="grow-1 overflow-hidden"
         tabItems={tabItems}
         headerCentered
         value={tabItem}
