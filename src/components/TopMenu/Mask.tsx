@@ -10,8 +10,8 @@ export const Mask: React.FC<Props> = ({ onClick }) => {
       fixed
       top-0
       left-0
-      w="100%"
-      h="100%"
+      w-full
+      h-full
       className="bg-#000000:75"
       z="[calc(var(--z-index-top-menu)_-_1)]"
       onClick={onClick}
