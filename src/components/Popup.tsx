@@ -1,29 +1,27 @@
 import { animated, useSpring } from '@react-spring/web'
-import { CurrentUser } from './TopMenu/CurrentUser'
 import { Mask } from './TopMenu/Mask'
-import { Menu } from './TopMenu/Menu'
 
 interface Props {
-  visible?: boolean
+  visible: boolean
   onClickMask?: () => void
+  content: React.ReactNode
 }
 
-export const TopMenu: React.FC<Props> = ({ visible, onClickMask }) => {
+export const Popup: React.FC<Props> = ({ visible, onClickMask, content }) => {
   const maskStyles = useSpring({
     opacity: visible ? 1 : 0,
   })
-  const menuStyles = useSpring({
+  const contentStyles = useSpring({
     opacity: visible ? 1 : 0,
-    transform: visible ? 'translateX(0%)' : 'translateX(-100%)',
+    transform: visible ? 'translateY(0%)' : 'translateY(100%)',
   })
   return (
     <>
       <animated.div className={`${visible ? 'pointer-events-auto' : 'pointer-events-none'}`} relative z="[calc(var(--z-index-mask))]" style={maskStyles}>
         <Mask onClick={onClickMask} />
       </animated.div>
-      <animated.div fixed top-0 left-0 w-70vw max-w-20em h-screen flex flex-col z="[calc(var(--z-index-mask)_+_1)]" style={menuStyles}>
-        <CurrentUser className="shrink-0" />
-        <Menu className="grow-1" />
+      <animated.div fixed left-0 bottom-0 w-full h-50vh flex flex-col z="[calc(var(--z-index-mask)_+_1)]" bg="#fff" style={contentStyles}>
+        {content}
       </animated.div>
     </>
   )
