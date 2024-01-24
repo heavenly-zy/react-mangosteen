@@ -10,8 +10,12 @@ import 'virtual:svgsprites'
 // vh-check 用于解决在某些浏览器中页面显示不全的问题
 vhCheck()
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const rootDiv = document.getElementById('root')!
+
+ReactDOM.createRoot(rootDiv).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+
+export { rootDiv }
