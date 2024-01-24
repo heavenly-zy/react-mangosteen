@@ -13,7 +13,6 @@ export const Mask: React.FC<Props> = ({ onClick }) => {
       w-full
       h-full
       className="bg-#000000:75"
-      z="[calc(var(--z-index-top-menu)_-_1)]"
       onClick={onClick}
     />
   )

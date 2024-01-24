@@ -18,7 +18,7 @@ export const TopMenu: React.FC<Props> = ({ visible, onClickMask }) => {
   })
   return (
     <>
-      <animated.div className={`${visible ? 'pointer-events-auto' : 'pointer-events-none'}`} style={maskStyles}>
+      <animated.div className={`${visible ? 'pointer-events-auto' : 'pointer-events-none'}`} relative z="[calc(var(--z-index-top-menu)_-_1)]" style={maskStyles}>
         <Mask onClick={onClickMask} />
       </animated.div>
       <animated.div fixed top-0 left-0 w-70vw max-w-20em h-screen flex flex-col z="[var(--z-index-top-menu)]" style={menuStyles}>
