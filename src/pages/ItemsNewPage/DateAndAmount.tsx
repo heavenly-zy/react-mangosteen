@@ -1,8 +1,9 @@
+import { DatePicker } from '../../components/DatePicker'
 import { Icon } from '../../components/Icon'
 import { usePopup } from '../../hooks/usePopup'
 
 export const DateAndAmount: React.FC = () => {
-  const { popup, toggle } = usePopup(<div>Popup</div>)
+  const { popup, toggle } = usePopup(<DatePicker />)
   return (
     <>
       <div flex p-16px b-t-1px b-t="#ddd" b-t-solid gap-x-8px items-center>
