@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const years = Array.from({ length: 25 }, (_, i) => 2000 + i)
+
 export const DatePicker: React.FC = () => {
   const [isTouching, setIsTouching] = useState(false)
   const [lastY, setLastY] = useState(0)
@@ -24,20 +26,10 @@ export const DatePicker: React.FC = () => {
       onTouchEnd={() => {
         const remainder = translateY % 36
         if (remainder > 0) {
-          if (remainder < 18) {
-            setTranslateY(translateY - remainder)
-          }
-          else {
-            setTranslateY(translateY + (36 - remainder))
-          }
+          setTranslateY(translateY + (remainder < 18 ? -remainder : 36 - remainder))
         }
         else {
-          if (remainder < -18) {
-            setTranslateY(translateY - (36 + remainder))
-          }
-          else {
-            setTranslateY(translateY - remainder)
-          }
+          setTranslateY(translateY - (remainder < -18 ? 36 + remainder : remainder))
         }
         setIsTouching(false)
       }}
@@ -55,28 +47,7 @@ export const DatePicker: React.FC = () => {
         text-center
         children-leading-36px
       >
-        <li>2000</li>
-        <li>2001</li>
-        <li>2002</li>
-        <li>2003</li>
-        <li>2004</li>
-        <li>2005</li>
-        <li>2006</li>
-        <li>2007</li>
-        <li>2008</li>
-        <li>2009</li>
-        <li>2010</li>
-        <li>2000</li>
-        <li>2001</li>
-        <li>2002</li>
-        <li>2003</li>
-        <li>2004</li>
-        <li>2005</li>
-        <li>2006</li>
-        <li>2007</li>
-        <li>2008</li>
-        <li>2009</li>
-        <li>2010</li>
+        {years.map(year => <li key={year}>{year}</li>)}
       </ol>
     </div>
   )
