@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { time } from '../lib/time'
 
 interface ColumnProps {
@@ -10,10 +10,13 @@ interface ColumnProps {
 }
 
 export const DatePickerColumn: React.FC<ColumnProps> = ({ value, itemHeight = 36, items, className, onChange }) => {
-  const index = items.indexOf(value)
+  const [translateY, setTranslateY] = useState(0)
   const [isTouching, setIsTouching] = useState(false)
   const [lastY, setLastY] = useState(0)
-  const [translateY, setTranslateY] = useState(index * -itemHeight)
+  useEffect(() => {
+    const index = items.indexOf(value)
+    setTranslateY(index * -itemHeight)
+  }, [itemHeight, items, value])
   return (
     <div
       className={className}
