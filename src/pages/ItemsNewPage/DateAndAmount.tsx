@@ -3,7 +3,9 @@ import { Icon } from '../../components/Icon'
 import { usePopup } from '../../hooks/usePopup'
 
 export const DateAndAmount: React.FC = () => {
-  const { popup, toggle } = usePopup(<DatePicker onChange={d => console.log(d.toLocaleString())} />)
+  const { popup, toggle, hide } = usePopup(
+    <DatePicker onConfirm={(d) => { console.log(d.toLocaleString()); hide() }} onCancel={() => hide()} />,
+  )
   return (
     <>
       <div flex p-16px b-t-1px b-t="#ddd" b-t-solid gap-x-8px items-center>

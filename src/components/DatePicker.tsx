@@ -66,10 +66,11 @@ interface Props {
   start?: Date
   end?: Date
   value?: Date
-  onChange?: (value: Date) => void
+  onCancel?: () => void
+  onConfirm?: (value: Date) => void
 }
 
-export const DatePicker: React.FC<Props> = ({ start, end, value, onChange }) => {
+export const DatePicker: React.FC<Props> = ({ start, end, value, onCancel, onConfirm }) => {
   const startTime = start ? time(start) : time().add(-10, 'years')
   const endTime = end ? time(end) : time().add(10, 'year')
   const valueTime = useRef(value ? time(value) : time())
@@ -81,25 +82,32 @@ export const DatePicker: React.FC<Props> = ({ start, end, value, onChange }) => 
   const monthList = Array.from({ length: 12 }).map((_, index) => index + 1)
   const dayList = Array.from({ length: valueTime.current.lastDayOfMonth.day }).map((_, index) => index + 1)
   return (
-    <div flex>
-      <DatePickerColumn
-        className="grow-1"
-        items={yearList}
-        value={valueTime.current.year}
-        onChange={(year) => { valueTime.current.year = year; update({}); onChange?.(valueTime.current.date) }}
-      />
-      <DatePickerColumn
-        className="grow-1"
-        items={monthList}
-        value={valueTime.current.month}
-        onChange={(month) => { valueTime.current.month = month; update({}); onChange?.(valueTime.current.date) }}
-      />
-      <DatePickerColumn
-        className="grow-1"
-        items={dayList}
-        value={valueTime.current.day}
-        onChange={(day) => { valueTime.current.day = day; update({}); onChange?.(valueTime.current.date) }}
-      />
+    <div bg="#fff" rounded-t-8px>
+      <div flex justify-between p-8px children-p-8px>
+        <button x-picker-button="#969799" active:opacity="60" onClick={onCancel}>取消</button>
+        <span font-600>选择日期</span>
+        <button x-picker-button="#1989fa" active:opacity="60" onClick={() => onConfirm?.(valueTime.current.date)}>确定</button>
+      </div>
+      <div flex>
+        <DatePickerColumn
+          className="grow-1"
+          items={yearList}
+          value={valueTime.current.year}
+          onChange={(year) => { valueTime.current.year = year; update({}) }}
+        />
+        <DatePickerColumn
+          className="grow-1"
+          items={monthList}
+          value={valueTime.current.month}
+          onChange={(month) => { valueTime.current.month = month; update({}) }}
+        />
+        <DatePickerColumn
+          className="grow-1"
+          items={dayList}
+          value={valueTime.current.day}
+          onChange={(day) => { valueTime.current.day = day; update({}) }}
+        />
+      </div>
     </div>
   )
 }
