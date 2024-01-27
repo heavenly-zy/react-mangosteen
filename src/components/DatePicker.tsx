@@ -1,23 +1,16 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { time } from '../lib/time'
 
 interface ColumnProps {
   className?: string
-  start?: Date
-  end?: Date
-  value?: Date
   itemHeight?: number
+  items: number[]
+  value: number
+  onChange: (value: number) => void
 }
 
-export const DatePickerColumn: React.FC<ColumnProps> = ({ start, end, value, itemHeight = 36, className }) => {
-  const startTime = start ? time(start) : time().add(-10, 'years')
-  const endTime = end ? time(end) : time().add(10, 'year')
-  const valueTime = value ? time(value) : time()
-  if (endTime.timestamp <= startTime.timestamp) {
-    throw new Error('结束时间必须晚于开始时间')
-  }
-  const yearList = Array.from({ length: endTime.year - startTime.year + 1 }).map((_, index) => startTime.year + index)
-  const index = yearList.indexOf(valueTime.year)
+export const DatePickerColumn: React.FC<ColumnProps> = ({ value, itemHeight = 36, items, className, onChange }) => {
+  const index = items.indexOf(value)
   const [isTouching, setIsTouching] = useState(false)
   const [lastY, setLastY] = useState(0)
   const [translateY, setTranslateY] = useState(index * -itemHeight)
@@ -50,27 +43,60 @@ export const DatePickerColumn: React.FC<ColumnProps> = ({ start, end, value, ite
           y = translateY - (remainder < -halfItemHeight ? itemHeight + remainder : remainder)
         }
         y = Math.min(y, 0) // y <= 0
-        y = Math.max(y, (yearList.length - 1) * -itemHeight) // y >= (years.length - 1) * -itemHeight
+        y = Math.max(y, (items.length - 1) * -itemHeight) // y >= (years.length - 1) * -itemHeight
         setTranslateY(y)
         setIsTouching(false)
+        onChange(items[Math.abs(y / itemHeight)])
       }}
     >
       <div style={{ height: itemHeight }} b-b-1 b-t-1 b-l-none b-r-none b="#ebedf0" b-solid absolute top="1\/2" translate-y="-1\/2" w-full />
       <div absolute top="1\/2" style={{ transform: `translateY(${-itemHeight / 2}px)` }} w-full text-center>
         <ol style={{ transform: `translateY(${translateY}px)` }}>
-          {yearList.map(year => <li key={year} style={{ height: itemHeight, lineHeight: `${itemHeight}px` }}>{year}</li>)}
+          {items.map(item => <li key={item} style={{ height: itemHeight, lineHeight: `${itemHeight}px` }}>{item}</li>)}
         </ol>
       </div>
     </div>
   )
 }
 
-export const DatePicker: React.FC = () => {
+interface Props {
+  start?: Date
+  end?: Date
+  value?: Date
+  onChange?: (value: Date) => void
+}
+
+export const DatePicker: React.FC<Props> = ({ start, end, value, onChange }) => {
+  const startTime = start ? time(start) : time().add(-10, 'years')
+  const endTime = end ? time(end) : time().add(10, 'year')
+  const valueTime = useRef(value ? time(value) : time())
+  if (endTime.timestamp <= startTime.timestamp) {
+    throw new Error('结束时间必须晚于开始时间')
+  }
+  const [, update] = useState({})
+  const yearList = Array.from({ length: endTime.year - startTime.year + 1 }).map((_, index) => startTime.year + index)
+  const monthList = Array.from({ length: 12 }).map((_, index) => index + 1)
+  const dayList = Array.from({ length: valueTime.current.lastDayOfMonth.day }).map((_, index) => index + 1)
   return (
     <div flex>
-      <DatePickerColumn className='grow-1' />
-      <DatePickerColumn className='grow-1' />
-      <DatePickerColumn className='grow-1' />
+      <DatePickerColumn
+        className="grow-1"
+        items={yearList}
+        value={valueTime.current.year}
+        onChange={(year) => { valueTime.current.year = year; update({}); onChange?.(valueTime.current.date) }}
+      />
+      <DatePickerColumn
+        className="grow-1"
+        items={monthList}
+        value={valueTime.current.month}
+        onChange={(month) => { valueTime.current.month = month; update({}); onChange?.(valueTime.current.date) }}
+      />
+      <DatePickerColumn
+        className="grow-1"
+        items={dayList}
+        value={valueTime.current.day}
+        onChange={(day) => { valueTime.current.day = day; update({}); onChange?.(valueTime.current.date) }}
+      />
     </div>
   )
 }
