@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Icon } from '../../components/Icon'
 
 interface Props {
@@ -21,19 +22,21 @@ export const Tags: React.FC<Props> = ({ kind }) => {
         children-gap-y-8px
       >
         <li>
-          <span
-            w-48px
-            h-48px
-            rounded="50%"
-            bg="#EFEFEF"
-            flex
-            justify-center
-            items-center
-            text-24px
-            text="#8F4CD7"
-          >
-            <Icon name="add" />
-          </span>
+          <Link to={`/tags/new?kind=${kind}`}>
+            <span
+              w-48px
+              h-48px
+              rounded="50%"
+              bg="#EFEFEF"
+              flex
+              justify-center
+              items-center
+              text-24px
+              text="#8F4CD7"
+            >
+              <Icon name="add" />
+            </span>
+          </Link>
           <span text-12px text="#666" text-center>新增标签</span>
         </li>
         {tags.map((_tag, index) => (
