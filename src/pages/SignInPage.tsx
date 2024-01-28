@@ -30,7 +30,7 @@ export const SignInPage: React.FC = () => {
         <Icon name="logo" className="h-68px w-64px" />
         <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
       </div>
-      <form x-form onSubmit={submitHandler}>
+      <form x-form px-16px onSubmit={submitHandler}>
         <div>
           <span x-form-label>
             邮箱地址&emsp;
