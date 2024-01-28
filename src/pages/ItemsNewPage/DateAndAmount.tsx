@@ -50,7 +50,7 @@ export const DateAndAmount: React.FC = () => {
         <button row-start-4 col-start-1 row-end-5 col-end-3 onClick={() => append('0')}>0</button>
         <button row-start-4 col-start-3 row-end-5 col-end-4 onClick={() => append('.')}>.</button>
         <button row-start-1 col-start-4 row-end-3 col-end-5 onClick={() => setOutput('0')}>清空</button>
-        <button row-start-3 col-start-4 row-end-5 col-end-5>提交</button>
+        <button row-start-3 col-start-4 row-end-5 col-end-5 bg="#5C33BE!" text-white>提交</button>
       </div>
       {popup}
     </>
