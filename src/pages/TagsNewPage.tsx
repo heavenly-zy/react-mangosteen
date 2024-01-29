@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
+import { Input } from '../components/Input'
 import emojis from '@/assets/emojis.json'
 
 export const TagsNewPage: React.FC = () => {
@@ -13,11 +14,7 @@ export const TagsNewPage: React.FC = () => {
         <TopNav title="新增标签" icon={<Icon name="back" />} />
       </Gradient>
       <form x-form px-16px py-32px onSubmit={onSubmit}>
-        <div>
-          <span x-form-label>标签名</span>
-          <input x-form-input />
-          <span text-red>标签名太长</span>
-        </div>
+        <Input label="标签名" error='标签名太长' />
         <div>
           <span text-18px>
             符号&nbsp;
