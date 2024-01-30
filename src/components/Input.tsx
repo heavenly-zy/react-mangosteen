@@ -1,7 +1,7 @@
 import { EmojiInput } from "./Input/EmojiInput"
 
 interface Props {
-  label: string
+  label: string | React.ReactNode
   placeholder?: string
   type?: 'text' | 'emoji'
   value?: string
@@ -23,7 +23,7 @@ export const Input: React.FC<Props> = ({ label, placeholder, type = 'text', valu
           />
         )
       case 'emoji':
-        return <EmojiInput />
+        return <EmojiInput value={value} onChange={onChange} />
       default:
         return null
     }
@@ -33,7 +33,7 @@ export const Input: React.FC<Props> = ({ label, placeholder, type = 'text', valu
       <div flex flex-col gap-y-8px>
         <span text-18px>{label}</span>
         {renderInput()}
-        <span text-red text-14px>{error || '\u00A0'}</span>
+        <span text-red text-14px>{error || '　'}</span>
       </div>
     </>
   )
