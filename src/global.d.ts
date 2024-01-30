@@ -37,3 +37,14 @@ interface Item {
 }
 
 type ItemKind = Item['kind']
+
+interface Tag {
+  id: number
+  kind: ItemKind
+  user_id: number
+  name: string
+  sign: string
+  deleted_at: string
+  created_at: string
+  updated_at: string
+}
