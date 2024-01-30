@@ -40,23 +40,14 @@ export const SignInPage: React.FC = () => {
           onChange={email => setFormData({ email })}
           error={errors.email?.[0]}
         />
-        <div>
-          <span x-form-label>
-            验证码&emsp;
-            {errors.code?.[0] && <span text-red>{errors.code[0]}</span>}
-          </span>
-          <div flex gap-x-16px>
-            <input
-              x-form-input
-              w="[calc(40%-8px)]"
-              type="text"
-              placeholder="六位数字"
-              value={formData.code}
-              onChange={e => setFormData({ code: e.target.value })}
-            />
-            <button x-btn w="[calc(60%-8px)]">发送验证码</button>
-          </div>
-        </div>
+        <Input
+          label="验证码"
+          type="sms_code"
+          value={formData.code}
+          placeholder="六位数字"
+          onChange={code => setFormData({ code })}
+          error={errors.code?.[0]}
+        />
         <div mt-100px>
           <button x-btn type="submit">登录</button>
         </div>

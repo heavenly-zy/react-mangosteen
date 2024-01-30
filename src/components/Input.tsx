@@ -1,9 +1,9 @@
-import { EmojiInput } from "./Input/EmojiInput"
+import { EmojiInput } from './Input/EmojiInput'
 
 interface Props {
   label: string | React.ReactNode
   placeholder?: string
-  type?: 'text' | 'emoji'
+  type?: 'text' | 'emoji' | 'sms_code'
   value?: string
   onChange?: (value: string) => void
   error?: string
@@ -16,7 +16,7 @@ export const Input: React.FC<Props> = ({ label, placeholder, type = 'text', valu
         return (
           <input
             x-form-input
-            type={type}
+            type="text"
             placeholder={placeholder}
             value={value}
             onChange={e => onChange?.(e.target.value)}
@@ -24,6 +24,20 @@ export const Input: React.FC<Props> = ({ label, placeholder, type = 'text', valu
         )
       case 'emoji':
         return <EmojiInput value={value} onChange={onChange} />
+      case 'sms_code':
+        return (
+          <div flex gap-x-16px>
+            <input
+              x-form-input
+              w="[calc(40%-8px)]"
+              type="text"
+              placeholder={placeholder}
+              value={value}
+              onChange={e => onChange?.(e.target.value)}
+            />
+            <button x-btn w="[calc(60%-8px)]">发送验证码</button>
+          </div>
+        )
       default:
         return null
     }
