@@ -19,7 +19,7 @@ export const LineChart: React.FC<Props> = ({ className, items }) => {
           const item = tooltipItems[0]
           const parts = item.axisValue.split('-')
           const label = `${parts[1]} 月 ${parts[2]} 日`
-          return `${label}<br/><div flex items-center justify-between>${item.marker}<span font-600>${item.data} 元</span></div>`
+          return `${label}<br/><div flex items-center justify-between>${item.marker}<span font-600>￥ ${item.data}</span></div>`
         },
       },
       grid: { left: 16, top: 8, bottom: 24, right: 16 },
