@@ -1,42 +1,55 @@
 import { EmojiInput } from './Input/EmojiInput'
 
-interface Props {
-  label: string | React.ReactNode
+type Props<T = string> = {
+  label?: string | React.ReactNode
   placeholder?: string
-  type?: 'text' | 'emoji' | 'sms_code'
-  value?: string
-  onChange?: (value: string) => void
+  value?: T
+  onChange?: (value: T) => void
   error?: string
-}
+} & (
+  | { type: 'text' }
+  | { type: 'emoji' }
+  | { type: 'sms_code' }
+  | { type: 'select'; options: { value: T, text: string }[] }
+)
 
-export const Input: React.FC<Props> = ({ label, placeholder, type = 'text', value, onChange, error }) => {
+export const Input = <T extends string>({ label, placeholder, type, value, onChange, error, ...restProps }: Props<T>) => {
   const renderInput = () => {
     switch (type) {
       case 'text':
         return (
           <input
-            x-form-input
+            x-input
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={e => onChange?.(e.target.value)}
+            onChange={e => onChange?.(e.target.value as T)}
           />
         )
       case 'emoji':
-        return <EmojiInput value={value} onChange={onChange} />
+        return <EmojiInput value={value} onChange={v => onChange?.(v as T)} />
       case 'sms_code':
         return (
           <div flex gap-x-16px>
             <input
-              x-form-input
+              x-input
               w="[calc(40%-8px)]"
               type="text"
               placeholder={placeholder}
               value={value}
-              onChange={e => onChange?.(e.target.value)}
+              onChange={e => onChange?.(e.target.value as T)}
             />
             <button x-btn w="[calc(60%-8px)]">发送验证码</button>
           </div>
+        )
+      case 'select':
+        if (!('options' in restProps))
+          return
+        return (
+          <select h-36px value={value} onChange={e => onChange?.(e.target.value as T)}>
+            {restProps.options.map(option =>
+              <option h-36px key={option.value} value={option.value}>{option.text}</option>)}
+          </select>
         )
       default:
         return null
@@ -45,9 +58,9 @@ export const Input: React.FC<Props> = ({ label, placeholder, type = 'text', valu
   return (
     <>
       <div flex flex-col gap-y-8px>
-        <span text-18px>{label}</span>
+        { label && <span text-18px>{label}</span> }
         {renderInput()}
-        <span text-red text-14px>{error || '　'}</span>
+        { type !== 'select' && <span text-red text-14px>{error || '　'}</span> }
       </div>
     </>
   )

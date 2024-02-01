@@ -42,8 +42,8 @@ export const TagForm: React.FC<Props> = ({ type = 'create' }) => {
     console.log('发起请求')
   }
   return (
-    <form x-form px-16px pt-32px onSubmit={onSubmit}>
-      <Input label="标签名" value={data.name} onChange={name => setData({ name })} error={errors.name?.[0]} />
+    <form flex flex-col gap-y-8px px-16px pt-32px onSubmit={onSubmit}>
+      <Input label="标签名" type="text" value={data.name} onChange={name => setData({ name })} error={errors.name?.[0]} />
       <Input
         type="emoji"
         label={(

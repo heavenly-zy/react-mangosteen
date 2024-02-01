@@ -13,8 +13,7 @@ export default defineConfig({
   shortcuts: [
     {
       'x-btn': 'h-48px w-full bg-#5C33BE b-none text-#ffffff rounded-8px cursor-pointer',
-      'x-form': 'flex flex-col gap-y-8px children-flex children-flex-col children-gap-y-8px',
-      'x-form-input': 'h-48px px-16px leading-32px py-8px b-#5C33BE b-1 focus:shadow focus:shadow-inset rounded-8px text-18px',
+      'x-input': 'h-48px px-16px leading-32px py-8px b-#5C33BE b-1 focus:shadow focus:shadow-inset rounded-8px text-18px',
     },
     [/^x-picker-button-(.*)$/, ([, c]) => `border-none bg-transparent select-none text-${c}`],
   ],

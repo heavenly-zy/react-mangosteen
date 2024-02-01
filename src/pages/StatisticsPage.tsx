@@ -3,6 +3,7 @@ import { type TimeRange, TimeRangePicker } from '../components/TimeRangePicker'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
+import { Input } from '../components/Input'
 import { LineChart } from './StatisticsPage/LineChart'
 import { PieChart } from './StatisticsPage/PieChart'
 import { Ranking } from './StatisticsPage/Ranking'
@@ -51,12 +52,24 @@ export const StatisticsPage: React.FC = () => {
     { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
     { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
   ].map(item => ({ name: item.tag.name, value: item.amount, sign: item.tag.sign }))
+  const [kind, setKind] = useState<ItemKind>('expenses')
   return (
     <div>
       <Gradient>
         <TopNav title="统计" icon={<Icon name="back" />} />
       </Gradient>
       <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
+      <div p-16px>
+        <Input
+          type="select"
+          options={[
+            { text: '支出', value: 'expenses' },
+            { text: '收入', value: 'income' },
+          ]}
+          value={kind}
+          onChange={setKind}
+        />
+      </div>
       <LineChart className="h-120px" items={items} />
       <PieChart className="mt-16px h-260px" items={items2} />
       <Ranking className="mt-8px" items={items3} />

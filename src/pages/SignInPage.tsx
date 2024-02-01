@@ -32,9 +32,10 @@ export const SignInPage: React.FC = () => {
         <Icon name="logo" className="h-68px w-64px" />
         <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
       </div>
-      <form x-form px-16px onSubmit={submitHandler}>
+      <form flex flex-col gap-y-8px px-16px onSubmit={submitHandler}>
         <Input
           label="邮箱地址"
+          type="text"
           value={formData.email}
           placeholder="请输入邮箱，然后点击发送验证码"
           onChange={email => setFormData({ email })}
