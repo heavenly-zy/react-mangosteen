@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
+import { getMoney } from '../../lib/get-money';
 
 interface Props {
   className?: string
@@ -15,7 +16,7 @@ export const PieChart: React.FC<Props> = ({ className, items }) => {
       tooltip: {
         trigger: 'item',
         formatter: (tooltipItem: any) => {
-          return `${tooltipItem.name}<br/><div flex items-center justify-between>${tooltipItem.marker}<span font-600>￥${tooltipItem.value} (${tooltipItem.percent}%)</span></div>`
+          return `${tooltipItem.name}<br/><div flex items-center justify-between>${tooltipItem.marker}<span font-600>${getMoney(tooltipItem.value)} (${tooltipItem.percent}%)</span></div>`
         }
       },
       grid: { top: 0, left: 0, bottom: 0, right: 0 },

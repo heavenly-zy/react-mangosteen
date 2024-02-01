@@ -40,12 +40,17 @@ export const StatisticsPage: React.FC = () => {
     { date: '2000-01-28', value: 155000 },
     { date: '2000-01-29', value: 155000 },
     { date: '2000-01-31', value: 10000 },
-  ].map(item => ({ ...item, value: item.value / 100 }))
+  ]
   const items2 = [
     { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
     { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
     { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
-  ].map(item => ({ name: item.tag.name, value: item.amount / 100 }))
+  ].map(item => ({ name: item.tag.name, value: item.amount }))
+  const items3 = [
+    { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
+    { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
+    { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
+  ].map(item => ({ name: item.tag.name, value: item.amount, sign: item.tag.sign }))
   return (
     <div>
       <Gradient>
@@ -54,7 +59,7 @@ export const StatisticsPage: React.FC = () => {
       <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
       <LineChart className="h-120px" items={items} />
       <PieChart className="mt-16px h-260px" items={items2} />
-      <Ranking />
+      <Ranking className="mt-8px" items={items3} />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
+import { getMoney } from '../../lib/get-money'
 
 interface Props {
   className?: string
@@ -19,7 +20,7 @@ export const LineChart: React.FC<Props> = ({ className, items }) => {
           const item = tooltipItems[0]
           const parts = item.axisValue.split('-')
           const label = `${parts[1]} 月 ${parts[2]} 日`
-          return `${label}<br/><div flex items-center justify-between>${item.marker}<span font-600>￥ ${item.data}</span></div>`
+          return `${label}<br/><div flex items-center justify-between>${item.marker}<span font-600>${getMoney(item.data)}</span></div>`
         },
       },
       grid: { left: 16, top: 8, bottom: 24, right: 16 },
