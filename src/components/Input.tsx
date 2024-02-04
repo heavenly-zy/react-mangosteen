@@ -1,4 +1,5 @@
 import { EmojiInput } from './Input/EmojiInput'
+import { SmsCodeInput } from './Input/SmsCodeInput'
 
 type Props<T = string> = {
   label?: string | React.ReactNode
@@ -30,19 +31,7 @@ export const Input = <T extends string>({ label, placeholder, type, value, onCha
         return <EmojiInput value={value} onChange={v => onChange?.(v as T)} />
       case 'sms_code':
         if (!('request' in restProps)) { return }
-        return (
-          <div flex gap-x-16px>
-            <input
-              x-input
-              w="[calc(40%-8px)]"
-              type="text"
-              placeholder={placeholder}
-              value={value}
-              onChange={e => onChange?.(e.target.value as T)}
-            />
-            <button type="button" x-btn w="[calc(60%-8px)]" onClick={restProps.request}>发送验证码</button>
-          </div>
-        )
+        return <SmsCodeInput value={value} onChange={v => onChange?.(v as T)} placeholder={placeholder} request={restProps.request} />
       case 'select':
         if (!('options' in restProps)) { return }
         return (
