@@ -7,11 +7,11 @@ interface Props {
   request?: () => Promise<unknown>
 }
 
-const countdown = 60
+const COUNT_DOWN = 60
 
 export const SmsCodeInput: React.FC<Props> = ({ value, placeholder, onChange, request }) => {
   const [startedTime, setStartedTime] = useState<Date>()
-  const [count, setCount] = useState(countdown)
+  const [countdown, setCountDown] = useState(COUNT_DOWN)
   const timer = useRef<number>()
   const onClick = async () => {
     if (!request) { return }
@@ -30,9 +30,9 @@ export const SmsCodeInput: React.FC<Props> = ({ value, placeholder, onChange, re
     }
     timer.current = window.setInterval(() => {
       const seconds = Math.round((new Date().getTime() - startedTime.getTime()) / 1000)
-      const newCount = countdown - seconds
-      if (newCount < 0) { setStartedTime(undefined) }
-      setCount(newCount)
+      const newCountDown = COUNT_DOWN - seconds
+      if (newCountDown < 0) { setStartedTime(undefined) }
+      setCountDown(newCountDown)
     }, 1000)
     return clearTimer
   }, [startedTime])
@@ -49,7 +49,7 @@ export const SmsCodeInput: React.FC<Props> = ({ value, placeholder, onChange, re
       {startedTime
         ? (
           <button type="button" max-w="[calc(60%-8px)]" shrink-0 x-btn disabled>
-            {`${count} 秒后可重试`}
+            {`${countdown} 秒后可重试`}
           </button>
           )
         : (
