@@ -9,7 +9,7 @@ type Props<T = string> = {
 } & (
   | { type: 'text' }
   | { type: 'emoji' }
-  | { type: 'sms_code' }
+  | { type: 'sms_code'; request?: () => Promise<unknown> }
   | { type: 'select'; options: { value: T, text: string }[] }
 )
 
@@ -29,6 +29,7 @@ export const Input = <T extends string>({ label, placeholder, type, value, onCha
       case 'emoji':
         return <EmojiInput value={value} onChange={v => onChange?.(v as T)} />
       case 'sms_code':
+        if (!('request' in restProps)) { return }
         return (
           <div flex gap-x-16px>
             <input
@@ -39,12 +40,11 @@ export const Input = <T extends string>({ label, placeholder, type, value, onCha
               value={value}
               onChange={e => onChange?.(e.target.value as T)}
             />
-            <button x-btn w="[calc(60%-8px)]">发送验证码</button>
+            <button type="button" x-btn w="[calc(60%-8px)]" onClick={restProps.request}>发送验证码</button>
           </div>
         )
       case 'select':
-        if (!('options' in restProps))
-          return
+        if (!('options' in restProps)) { return }
         return (
           <select h-36px value={value} onChange={e => onChange?.(e.target.value as T)}>
             {restProps.options.map(option =>

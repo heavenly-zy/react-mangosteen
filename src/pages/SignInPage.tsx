@@ -23,6 +23,16 @@ export const SignInPage: React.FC = () => {
     await ajax.post('/api/v1/session', formData)
     nav('/home')
   }
+  const sendSmsCode = async () => {
+    const _errors = validate({ email: formData.email }, [
+      { key: 'email', type: 'required', message: '请输入邮箱' },
+      { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' }
+    ])
+    setErrors(_errors)
+    if (hasError(_errors)) { return }
+    const response = await ajax.post('/api/v1/validation_codes', { email: formData.email })
+    return response
+  }
   return (
     <div>
       <Gradient>
@@ -48,6 +58,7 @@ export const SignInPage: React.FC = () => {
           placeholder="六位数字"
           onChange={code => setFormData({ code })}
           error={errors.code?.[0]}
+          request={sendSmsCode}
         />
         <div mt-100px>
           <button x-btn type="submit">登录</button>
