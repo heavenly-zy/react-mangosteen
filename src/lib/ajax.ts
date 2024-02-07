@@ -1,5 +1,4 @@
 import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig, type CreateAxiosDefaults } from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 type GetConfig = Omit<AxiosRequestConfig, 'url' | 'params' | 'method'>
 type PostConfig = Omit<AxiosRequestConfig, 'url' | 'params' | 'data' | 'method'>
@@ -41,12 +40,10 @@ ajax.instance.interceptors.request.use((config) => {
   return config
 })
 
-const nav = useNavigate()
-
 const httpErrors: Record<string, undefined | (() => void)> = {
   401: () => {
     window.alert('没有权限')
-    nav('/sign_in')
+    location.reload()
   },
   403: () => {
     window.alert('没有权限')
