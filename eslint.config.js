@@ -31,6 +31,7 @@ export default antfu({
     "antfu/top-level-function": "off",
     "curly": "off",
     "no-console": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "no-alert": "off"
   }
 })
