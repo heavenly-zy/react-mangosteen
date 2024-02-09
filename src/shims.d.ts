@@ -28,3 +28,9 @@ declare module 'react' {
     h?: string
   }
 }
+
+declare module "axios" {
+  export interface AxiosRequestConfig {
+    autoLoading?: boolean
+  }
+}

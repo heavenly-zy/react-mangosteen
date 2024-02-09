@@ -37,12 +37,14 @@ export const ajax = new Ajax({
 ajax.instance.interceptors.request.use((config) => {
   const jwt = localStorage.getItem('jwt') || ''
   config.headers.Authorization = `Bearer ${jwt}`
+  // config.autoLoading && setVisible(true)
   return config
 })
 
 const httpErrors: Record<string, undefined | (() => void)> = {
   401: () => {
     window.alert('没有权限')
+    localStorage.removeItem('jwt')
     location.reload()
   },
   403: () => {
@@ -57,11 +59,15 @@ const httpErrors: Record<string, undefined | (() => void)> = {
 }
 
 ajax.instance.interceptors.response.use(
-  response => response,
+  (response) => {
+    // response.config.autoLoading && setVisible(false)
+    return response
+  },
   (error: AxiosError) => {
     if (!error.response) { return }
     const { status } = error.response
     httpErrors[status]?.()
+    // config.autoLoading && setVisible(false)
     throw error
   },
 )
