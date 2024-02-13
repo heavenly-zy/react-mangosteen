@@ -43,9 +43,7 @@ ajax.instance.interceptors.request.use((config) => {
 
 const httpErrors: Record<string, undefined | (() => void)> = {
   401: () => {
-    window.alert('没有权限')
     localStorage.removeItem('jwt')
-    location.reload()
   },
   403: () => {
     window.alert('没有权限')

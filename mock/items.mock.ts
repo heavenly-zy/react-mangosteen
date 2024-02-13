@@ -42,6 +42,7 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }): Resources<Item>
 export const itemsMock: MockMethod = {
   url: '/api/v1/items',
   method: 'get',
+  statusCode: 401,
   timeout: 1000,
   response: ({ query }) => createResponse(
     {
