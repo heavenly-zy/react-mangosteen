@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
@@ -10,6 +10,7 @@ import { Input } from '../components/Input'
 export const SignInPage: React.FC = () => {
   const nav = useNavigate()
   const { formData, setFormData, errors, setErrors } = useSignInStore()
+  const [search] = useSearchParams()
   const submitHandler: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     const _errors = validate(formData, [
@@ -18,10 +19,10 @@ export const SignInPage: React.FC = () => {
       { key: 'code', type: 'required', message: '请输入验证码' },
     ])
     setErrors(_errors)
-    if (hasError(_errors))
-      return
+    if (hasError(_errors)) { return }
     await ajax.post('/api/v1/session', formData)
-    nav('/home')
+    const returnTo = search.get('return-to') || '/items'
+    nav(returnTo)
   }
   const sendSmsCode = async () => {
     const _errors = validate({ email: formData.email }, [
