@@ -41,7 +41,7 @@ export const SignInPage: React.FC = () => {
       </Gradient>
       <div text-center pt-40px pb-16px>
         <Icon name="logo" className="h-68px w-64px" />
-        <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
+        <h1 text-32px text="#7878FF" font-bold>吼姆记账</h1>
       </div>
       <form flex flex-col gap-y-8px px-16px onSubmit={submitHandler}>
         <Input

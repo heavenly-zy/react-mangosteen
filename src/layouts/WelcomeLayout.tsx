@@ -47,7 +47,7 @@ export const WelcomeLayout: React.FC = () => {
     <div bg="#5f34bf" h-screen flex flex-col pb-16px>
       <header shrink-0 text-center pt-64px>
         <img src={logo} w-64px />
-        <h1 text="#D4D4EE" text-32px>山竹记账</h1>
+        <h1 text="#D4D4EE" text-32px>吼姆记账</h1>
       </header>
       <main relative shrink-1 grow-1 ref={mainRef}>
         {transitions((style, pathname) => (
