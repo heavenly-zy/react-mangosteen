@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { Tabs } from '../components/Tabs'
+import { useNewItemStore } from '../stores/useNewItemStore'
 import { Tags } from './ItemsNewPage/Tags'
 import { DateAndAmount } from './ItemsNewPage/DateAndAmount'
 
@@ -11,7 +12,7 @@ export const ItemsNewPage: React.FC = () => {
     { key: 'expenses', text: '支出', content: <Tags kind="expenses" /> },
     { key: 'income', text: '收入', content: <Tags kind="income" /> },
   ] satisfies { key: ItemKind, text: string, content: React.ReactNode }[]
-  const [tabItem, setTabItem] = useState<ItemKind>('expenses')
+  const { data, error, setData, setError } = useNewItemStore()
   return (
     <div h-screen flex flex-col>
       <Gradient>
@@ -21,8 +22,8 @@ export const ItemsNewPage: React.FC = () => {
         className="grow-1 overflow-hidden"
         tabItems={tabItems}
         headerCentered
-        value={tabItem}
-        onChange={setTabItem}
+        value={data.kind!}
+        onChange={kind => setData({ kind })}
       />
       <DateAndAmount />
     </div>
