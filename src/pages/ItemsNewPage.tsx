@@ -8,11 +8,19 @@ import { Tags } from './ItemsNewPage/Tags'
 import { DateAndAmount } from './ItemsNewPage/DateAndAmount'
 
 export const ItemsNewPage: React.FC = () => {
-  const tabItems = [
-    { key: 'expenses', text: '支出', content: <Tags kind="expenses" /> },
-    { key: 'income', text: '收入', content: <Tags kind="income" /> },
-  ] satisfies { key: ItemKind, text: string, content: React.ReactNode }[]
   const { data, error, setData, setError } = useNewItemStore()
+  const tabItems = [
+    {
+      key: 'expenses',
+      text: '支出',
+      content: <Tags kind="expenses" value={data.tag_ids} onChange={ids => setData({ tag_ids: ids })} />,
+    },
+    {
+      key: 'income',
+      text: '收入',
+      content: <Tags kind="income" value={data.tag_ids} onChange={ids => setData({ tag_ids: ids })} />,
+    },
+  ] satisfies { key: ItemKind, text: string, content: React.ReactNode }[]
   return (
     <div h-screen flex flex-col>
       <Gradient>
@@ -25,6 +33,7 @@ export const ItemsNewPage: React.FC = () => {
         value={data.kind!}
         onChange={kind => setData({ kind })}
       />
+      <div>{JSON.stringify(data)}</div>
       <DateAndAmount />
     </div>
   )

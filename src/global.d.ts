@@ -38,13 +38,15 @@ interface Item {
 
 type ItemKind = Item['kind']
 
+type TagIds = Item['tag_ids']
+
 interface Tag {
   id: number
   kind: ItemKind
   user_id: number
   name: string
   sign: string
-  deleted_at: string
   created_at: string
   updated_at: string
+  deleted_at: string
 }
