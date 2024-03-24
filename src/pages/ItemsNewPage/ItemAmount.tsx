@@ -1,14 +1,10 @@
-import { useState } from 'react'
-import { DatePicker } from '../../components/DatePicker'
-import { Icon } from '../../components/Icon'
-import { usePopup } from '../../hooks/usePopup'
-import { time } from '../../lib/time'
+import React, { useState } from 'react'
 
-export const DateAndAmount: React.FC = () => {
-  const [date, setDate] = useState(new Date())
-  const { popup, toggle, hide } = usePopup(
-    <DatePicker onConfirm={(d) => { setDate(d); hide() }} onCancel={() => hide()} />,
-  )
+interface Props {
+  children?: React.ReactNode
+}
+
+export const ItemAmount: React.FC<Props> = ({ children }) => {
   const [output, _setOutput] = useState('0')
   const setOutput = (str: string) => {
     const dotIndex = str.indexOf('.')
@@ -33,8 +29,7 @@ export const DateAndAmount: React.FC = () => {
   return (
     <>
       <div flex p-16px b-t-1px b-t="#ddd" b-t-solid gap-x-8px items-center>
-        <Icon name="calendar" className="h-24px w-24px shrink-0" />
-        <span shrink-0 text-12px color="#999" onClick={toggle}>{time(date).format()}</span>
+        {children}
         <code grow-1 text-20px text-right color="#53A867">{output}</code>
       </div>
       <div pt-1px grid grid-cols="[repeat(4,_1fr)]" grid-rows="[repeat(4,_56px)]" bg="#ddd" gap-1px children-b-none children-bg="#fff">
@@ -52,7 +47,6 @@ export const DateAndAmount: React.FC = () => {
         <button row-start-1 col-start-4 row-end-3 col-end-5 onClick={() => setOutput('0')}>清空</button>
         <button row-start-3 col-start-4 row-end-5 col-end-5 bg="#5C33BE!" text-white>提交</button>
       </div>
-      {popup}
     </>
   )
 }

@@ -5,7 +5,8 @@ import { TopNav } from '../components/TopNav'
 import { Tabs } from '../components/Tabs'
 import { useNewItemStore } from '../stores/useNewItemStore'
 import { Tags } from './ItemsNewPage/Tags'
-import { DateAndAmount } from './ItemsNewPage/DateAndAmount'
+import { ItemAmount } from './ItemsNewPage/ItemAmount'
+import { ItemDate } from './ItemsNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
   const { data, error, setData, setError } = useNewItemStore()
@@ -34,7 +35,9 @@ export const ItemsNewPage: React.FC = () => {
         onChange={kind => setData({ kind })}
       />
       <div>{JSON.stringify(data)}</div>
-      <DateAndAmount />
+      <ItemAmount>
+        <ItemDate />
+      </ItemAmount>
     </div>
   )
 }
