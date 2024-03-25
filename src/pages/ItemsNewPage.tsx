@@ -14,16 +14,20 @@ export const ItemsNewPage: React.FC = () => {
     {
       key: 'expenses',
       text: '支出',
-      content: <Tags kind="expenses" value={data.tag_ids} onChange={ids => setData({ tag_ids: ids })} />,
+      content: <Tags kind="expenses" value={data.tag_ids} onChange={tag_ids => setData({ tag_ids })} />,
     },
     {
       key: 'income',
       text: '收入',
-      content: <Tags kind="income" value={data.tag_ids} onChange={ids => setData({ tag_ids: ids })} />,
+      content: <Tags kind="income" value={data.tag_ids} onChange={tag_ids => setData({ tag_ids })} />,
     },
   ] satisfies { key: ItemKind, text: string, content: React.ReactNode }[]
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    console.log('提交')
+  }
   return (
-    <div h-screen flex flex-col>
+    <form h-screen flex flex-col onSubmit={onSubmit}>
       <Gradient>
         <TopNav title="记一笔" icon={<Icon name="back" />} />
       </Gradient>
@@ -34,10 +38,9 @@ export const ItemsNewPage: React.FC = () => {
         value={data.kind!}
         onChange={kind => setData({ kind })}
       />
-      <div>{JSON.stringify(data)}</div>
       <ItemAmount value={data.amount} onChange={amount => setData({ amount })}>
-        <ItemDate value={data.happen_at} onChange={(happen_at) => setData({ happen_at })} />
+        <ItemDate value={data.happen_at} onChange={happen_at => setData({ happen_at })} />
       </ItemAmount>
-    </div>
+    </form>
   )
 }
