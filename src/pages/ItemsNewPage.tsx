@@ -9,7 +9,7 @@ import { ItemAmount } from './ItemsNewPage/ItemAmount'
 import { ItemDate } from './ItemsNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
-  const { data, error, setData, setError } = useNewItemStore()
+  const { data, errors, setData, setErrors } = useNewItemStore()
   const tabItems = [
     {
       key: 'expenses',
@@ -35,8 +35,8 @@ export const ItemsNewPage: React.FC = () => {
         onChange={kind => setData({ kind })}
       />
       <div>{JSON.stringify(data)}</div>
-      <ItemAmount>
-        <ItemDate />
+      <ItemAmount value={data.amount} onChange={amount => setData({ amount })}>
+        <ItemDate value={data.happen_at} onChange={(happen_at) => setData({ happen_at })} />
       </ItemAmount>
     </div>
   )

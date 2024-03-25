@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 
 interface Props {
+  value?: number
+  onChange?: (amount: number) => void
   children?: React.ReactNode
 }
 
-export const ItemAmount: React.FC<Props> = ({ children }) => {
-  const [output, _setOutput] = useState('0')
+export const ItemAmount: React.FC<Props> = ({ value, onChange, children }) => {
+  const [output, _setOutput] = useState(() => value ? (value / 100).toString() : '0')
   const setOutput = (str: string) => {
     const dotIndex = str.indexOf('.')
     if (dotIndex >= 0 && str.length - dotIndex > 3) { return }
     if (str.length > 16) { return }
     _setOutput(str)
+    onChange?.(Number.parseFloat(str) * 100)
   }
   const append = (char: string) => {
     switch (char) {
