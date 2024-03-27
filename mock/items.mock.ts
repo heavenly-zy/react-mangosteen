@@ -7,20 +7,18 @@ const createId = () => {
   return id
 }
 
-const createItem = (): Item => (
-  {
-    id: createId(),
-    user_id: 1,
-    amount: faker.number.int({ min: 99, max: 1000_00 }),
-    tag_ids: [1, 2],
-    happen_at: faker.date.past().toISOString(),
-    created_at: faker.date.past().toISOString(),
-    updated_at: faker.date.past().toISOString(),
-    kind: 'expenses',
-  }
-)
+const createItem = (): Item => ({
+  id: createId(),
+  user_id: 1,
+  amount: faker.number.int({ min: 99, max: 1000_00 }),
+  tag_ids: [1, 2],
+  happen_at: faker.date.past().toISOString(),
+  created_at: faker.date.past().toISOString(),
+  updated_at: faker.date.past().toISOString(),
+  kind: 'expenses',
+})
 
-const createItemList = (n: number): Item[] => Array.from({ length: n }).map(() => createItem())
+const createItems = (n: number): Item[] => Array.from({ length: n }).map(() => createItem())
 
 const createResponse = ({ count = 10, perPage = 10, page = 1 }): Resources<Item> => {
   // 到目前为止已发送的数量
@@ -30,7 +28,7 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }): Resources<Item>
   // 当前应返回的数量
   const resourcesCount = Math.min(remainingItems, perPage)
   return {
-    resources: createItemList(resourcesCount),
+    resources: createItems(resourcesCount),
     pager: {
       page,
       per_page: perPage,
