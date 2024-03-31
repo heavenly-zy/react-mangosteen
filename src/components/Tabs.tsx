@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const TabItem = styled.li<{ selected: boolean }>`
   position: relative;
 
-  ${props => props.selected && `
+  ${props => props.selected && css`
     &::after {
       content: '';
       position: absolute;
