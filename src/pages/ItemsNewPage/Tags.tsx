@@ -2,9 +2,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import useSWRInfinite from 'swr/infinite'
 import styled from 'styled-components'
-import { useRef } from 'react'
 import { Icon } from '../../components/Icon'
 import { ajax } from '../../lib/ajax'
+import { LongPressable } from '../../components/LongPressable'
 
 const Tip = styled.div`
   padding: 16px;
@@ -20,6 +20,8 @@ interface Props {
 const fetcher = async (path: string) => (await ajax.get<Resources<Tag>>(path)).data
 
 export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
+  const nav = useNavigate()
+
   const getKey = (pageIndex: number, prev: Resources<Item>) => {
     if (prev) {
       const sendCount = (prev.pager.page - 1) * prev.pager.per_page + prev.resources.length
@@ -38,34 +40,6 @@ export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
   } = useSWRInfinite(getKey, fetcher, { revalidateFirstPage: false })
   const isLoadingMore = !error && data?.[page - 1] === undefined
 
-  // 长按跳转
-  const touchTimer = useRef<number>()
-  const touchPosition = useRef<{ x?: number, y?: number }>({ x: undefined, y: undefined })
-  const nav = useNavigate()
-  const onTouchStart = (e: React.TouchEvent<HTMLLIElement>, id: Tag['id']) => {
-    touchTimer.current = window.setTimeout(() => {
-      nav(`/tags/${id}`)
-    }, 500)
-    const { clientX: x, clientY: y } = e.touches[0]
-    touchPosition.current = { x, y }
-  }
-  const onTouchMove = (e: React.TouchEvent<HTMLLIElement>) => {
-    const { clientX: newX, clientY: newY } = e.touches[0]
-    const { x, y } = touchPosition.current
-    if (x === undefined || y === undefined) { return }
-    const distance = Math.sqrt((newX - x) ** 2 + (newY - y) ** 2)
-    if (distance > 10) {
-      window.clearTimeout(touchTimer.current)
-      touchTimer.current = undefined
-    }
-  }
-  const onTouchEnd = () => {
-    if (touchTimer.current) {
-      window.clearTimeout(touchTimer.current)
-      touchTimer.current = undefined
-    }
-  }
-
   // 初次加载
   if (!data) {
     return (
@@ -82,12 +56,11 @@ export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
   const hasMore = (lastPage - 1) * per_page + lastItem.resources.length < count
 
   const renderTag = (tag: Tag) => (
-    <li
+    <LongPressable
+      as="li"
       key={tag.id}
       onClick={() => onChange?.([tag.id])}
-      onTouchStart={e => onTouchStart(e, tag.id)}
-      onTouchMove={e => onTouchMove(e)}
-      onTouchEnd={onTouchEnd}
+      onLongPressComplete={() => { nav(`/tags/${tag.id}`) }}
     >
       <span
         h-48px
@@ -104,7 +77,7 @@ export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
         {tag.sign}
       </span>
       <span text-12px text="#666" text-center>{tag.name}</span>
-    </li>
+    </LongPressable>
   )
 
   return (
