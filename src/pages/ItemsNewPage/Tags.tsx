@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import useSWRInfinite from 'swr/infinite'
 import styled from 'styled-components'
+import { useRef } from 'react'
 import { Icon } from '../../components/Icon'
 import { ajax } from '../../lib/ajax'
 
@@ -37,6 +38,34 @@ export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
   } = useSWRInfinite(getKey, fetcher, { revalidateFirstPage: false })
   const isLoadingMore = !error && data?.[page - 1] === undefined
 
+  // 长按跳转
+  const touchTimer = useRef<number>()
+  const touchPosition = useRef<{ x?: number, y?: number }>({ x: undefined, y: undefined })
+  const nav = useNavigate()
+  const onTouchStart = (e: React.TouchEvent<HTMLLIElement>, id: Tag['id']) => {
+    touchTimer.current = window.setTimeout(() => {
+      nav(`/tags/${id}`)
+    }, 500)
+    const { clientX: x, clientY: y } = e.touches[0]
+    touchPosition.current = { x, y }
+  }
+  const onTouchMove = (e: React.TouchEvent<HTMLLIElement>) => {
+    const { clientX: newX, clientY: newY } = e.touches[0]
+    const { x, y } = touchPosition.current
+    if (x === undefined || y === undefined) { return }
+    const distance = Math.sqrt((newX - x) ** 2 + (newY - y) ** 2)
+    if (distance > 10) {
+      window.clearTimeout(touchTimer.current)
+      touchTimer.current = undefined
+    }
+  }
+  const onTouchEnd = () => {
+    if (touchTimer.current) {
+      window.clearTimeout(touchTimer.current)
+      touchTimer.current = undefined
+    }
+  }
+
   // 初次加载
   if (!data) {
     return (
@@ -53,7 +82,13 @@ export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
   const hasMore = (lastPage - 1) * per_page + lastItem.resources.length < count
 
   const renderTag = (tag: Tag) => (
-    <li key={tag.id} onClick={() => onChange?.([tag.id])}>
+    <li
+      key={tag.id}
+      onClick={() => onChange?.([tag.id])}
+      onTouchStart={e => onTouchStart(e, tag.id)}
+      onTouchMove={e => onTouchMove(e)}
+      onTouchEnd={onTouchEnd}
+    >
       <span
         h-48px
         rounded="50%"
