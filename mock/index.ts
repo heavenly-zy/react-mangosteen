@@ -1,12 +1,12 @@
 import type { MockMethod } from 'vite-plugin-mock'
-import { meMock } from './me.mock'
-import { itemsMock } from './items.mock'
-import { sessionMock } from './session.mock'
-import { tagsMock } from './tags.mock'
+import { meMocks } from './me.mock'
+import { itemsMocks } from './items.mock'
+import { sessionMocks } from './session.mock'
+import { tagsMocks } from './tags.mock'
 
 export default [
-  meMock,
-  itemsMock,
-  sessionMock,
-  tagsMock
+  ...meMocks,
+  ...itemsMocks,
+  ...sessionMocks,
+  ...tagsMocks
 ] satisfies MockMethod[]

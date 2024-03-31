@@ -36,13 +36,21 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }): Resources<Tag> 
   }
 }
 
-export const tagsMock: MockMethod = {
-  url: '/api/v1/tags',
-  method: 'get',
-  statusCode: 200,
-  response: ({ query }): Resources<Tag> => createResponse({
-    count: 54,
-    perPage: 50,
-    page: Number.parseInt(query.page || 1),
-  }),
-}
+export const tagsMocks: MockMethod[] = [
+  {
+    url: '/api/v1/tags',
+    method: 'get',
+    statusCode: 200,
+    response: ({ query }): Resources<Tag> => createResponse({
+      count: 54,
+      perPage: 50,
+      page: Number.parseInt(query.page || 1),
+    }),
+  },
+  {
+    url: '/api/v1/tags',
+    method: 'post',
+    statusCode: 200,
+    response: (): Resource<Tag> => ({ resource: createTag() }),
+  },
+]

@@ -37,16 +37,18 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }): Resources<Item>
   }
 }
 
-export const itemsMock: MockMethod = {
-  url: '/api/v1/items',
-  method: 'get',
-  statusCode: 200,
-  timeout: 1000,
-  response: ({ query }) => createResponse(
-    {
-      count: 50,
-      perPage: 10,
-      page: Number.parseInt(query.page || 1),
-    },
-  ),
-}
+export const itemsMocks: MockMethod[] = [
+  {
+    url: '/api/v1/items',
+    method: 'get',
+    statusCode: 200,
+    timeout: 1000,
+    response: ({ query }) => createResponse(
+      {
+        count: 50,
+        perPage: 10,
+        page: Number.parseInt(query.page || 1),
+      },
+    ),
+  },
+]
