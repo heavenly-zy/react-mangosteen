@@ -69,4 +69,10 @@ export const tagsMocks: MockMethod[] = [
     statusCode: 200,
     response: (): Resource<Tag> => ({ resource: createTag() }),
   },
+  // 删除 tag
+  {
+    url: '/api/v1/tags/:id',
+    method: 'delete',
+    statusCode: 200,
+  },
 ]
