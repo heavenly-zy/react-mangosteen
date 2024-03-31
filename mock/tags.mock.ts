@@ -37,6 +37,7 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }): Resources<Tag> 
 }
 
 export const tagsMocks: MockMethod[] = [
+  // 查询 tag list
   {
     url: '/api/v1/tags',
     method: 'get',
@@ -47,9 +48,24 @@ export const tagsMocks: MockMethod[] = [
       page: Number.parseInt(query.page || 1),
     }),
   },
+  // 新增 tag
   {
     url: '/api/v1/tags',
     method: 'post',
+    statusCode: 200,
+    response: (): Resource<Tag> => ({ resource: createTag() }),
+  },
+  // 查询单个 tag
+  {
+    url: '/api/v1/tags/:id',
+    method: 'get',
+    statusCode: 200,
+    response: (): Resource<Tag> => ({ resource: createTag() }),
+  },
+  // 更新 tag
+  {
+    url: '/api/v1/tags/:id',
+    method: 'patch',
     statusCode: 200,
     response: (): Resource<Tag> => ({ resource: createTag() }),
   },

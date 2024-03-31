@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import type { AxiosError } from 'axios'
+import useSWR from 'swr'
 import type { FormErrors } from '../../lib/validate'
 import { hasError, validate } from '../../lib/validate'
 import { Input } from '../../components/Input'
@@ -8,33 +9,38 @@ import { useNewTagStore } from '../../stores/useNewTagStore'
 import { ajax } from '../../lib/ajax'
 
 interface Props {
-  type?: 'create' | 'edit'
+  /** 默认为新增表单 */
+  type?: 'new' | 'edit'
 }
 
-export const TagForm: React.FC<Props> = ({ type = 'create' }) => {
+export const TagForm: React.FC<Props> = ({ type = 'new' }) => {
   const { data, setData, errors, setErrors } = useNewTagStore()
   const [searchParams] = useSearchParams()
   const params = useParams()
   const kind = searchParams.get('kind') ?? ''
+  const id = params.id
   const nav = useNavigate()
 
+  const { data: tag } = useSWR(id ? `/api/v1/tags/${id}` : null, async path =>
+    (await ajax.get<Resource<Tag>>(path)).data.resource)
+
   useEffect(() => {
-    if (type === 'create') {
-      if (!kind) {
-        throw new Error('url 中缺少 kind 参数')
-      }
-      if (kind !== 'expenses' && kind !== 'income') {
-        throw new Error('kind 必须是 expenses 或 income')
-      }
+    // 新增 tag
+    if (type === 'new') {
+      if (!kind) { throw new Error('url 中缺少 kind 参数') }
+      if (kind !== 'expenses' && kind !== 'income') { throw new Error('kind 必须是 expenses 或 income') }
       // 路由跳转成功后才进行 kind 设置
       setData({ kind })
     }
-    if (type === 'edit') {
-      const id = params.id
-      if (!id) { throw new Error('url 中缺少 tag id') }
-      console.log('id: ', id)
-    }
-  }, [kind, params.id, searchParams, setData, type])
+
+    // 编辑 tag
+    if (type === 'edit' && tag) { setData(tag) }
+  }, [kind, setData, tag, type])
+
+  // 组件卸载时清空表单
+  useEffect(() => () => {
+    setData({ name: '', sign: '' })
+  }, [setData])
 
   const errorHandler = (error: AxiosError<{ errors: FormErrors<typeof data> }>) => {
     if (!error.response) { throw error }
@@ -55,8 +61,10 @@ export const TagForm: React.FC<Props> = ({ type = 'create' }) => {
     ])
     setErrors(_errors)
     if (hasError(_errors)) { return }
-    const response = await ajax.post<Resource<Tag>>('/api/v1/tags', data).catch(errorHandler)
-    setData(response.data.resource)
+    const tagPromise = type === 'new'
+      ? ajax.post<Resource<Tag>>('/api/v1/tags', {}, data)
+      : ajax.patch<Resource<Tag>>(`/api/v1/tags/${id}`, {}, data)
+    await tagPromise.catch(errorHandler)
     nav(`/items/new?kind=${encodeURIComponent(kind)}`)
   }
 
