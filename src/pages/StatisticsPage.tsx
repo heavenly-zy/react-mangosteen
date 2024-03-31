@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { type TimeRange, TimeRangePicker } from '../components/TimeRangePicker'
 import { Gradient } from '../components/Gradient'
-import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { Input } from '../components/Input'
+import { BackIcon } from '../components/BackIcon'
 import { LineChart } from './StatisticsPage/LineChart'
 import { PieChart } from './StatisticsPage/PieChart'
 import { Ranking } from './StatisticsPage/Ranking'
@@ -56,7 +56,7 @@ export const StatisticsPage: React.FC = () => {
   return (
     <div>
       <Gradient>
-        <TopNav title="统计" icon={<Icon name="back" />} />
+        <TopNav title="统计" icon={<BackIcon />} />
       </Gradient>
       <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
       <div p-16px>

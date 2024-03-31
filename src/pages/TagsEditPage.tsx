@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
-import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { ajax } from '../lib/ajax'
+import { BackIcon } from '../components/BackIcon'
 import { TagForm } from './TagsNewPage/TagForm'
 
 export const TagsEditPage: React.FC = () => {
@@ -24,7 +24,7 @@ export const TagsEditPage: React.FC = () => {
   return (
     <div>
       <Gradient>
-        <TopNav title="查看标签" icon={<Icon name="back" />} />
+        <TopNav title="查看标签" icon={<BackIcon />} />
       </Gradient>
       <TagForm type="edit" />
       <div px-16px py-32px>

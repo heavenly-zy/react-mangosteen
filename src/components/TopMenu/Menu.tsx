@@ -11,7 +11,7 @@ const MenuIcon = styled(Icon)`
 `
 
 const menuItems = [
-  { key: 'charts', icon: 'chart', text: '统计图表', to: '/charts' },
+  { key: 'charts', icon: 'chart', text: '统计图表', to: '/statistics' },
   { key: 'export', icon: 'export', text: '导出数据', to: '/export' },
   { key: 'tags', icon: 'tag', text: '自定义标签', to: '/tags' },
   { key: 'notify', icon: 'notify', text: '记账提醒', to: '/notify' },

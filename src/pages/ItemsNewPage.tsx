@@ -1,11 +1,11 @@
 import React from 'react'
 import { Gradient } from '../components/Gradient'
-import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { Tabs } from '../components/Tabs'
 import { useNewItemStore } from '../stores/useNewItemStore'
 import { hasError, validate } from '../lib/validate'
 import { ajax } from '../lib/ajax'
+import { BackIcon } from '../components/BackIcon'
 import { Tags } from './ItemsNewPage/Tags'
 import { ItemAmount } from './ItemsNewPage/ItemAmount'
 import { ItemDate } from './ItemsNewPage/ItemDate'
@@ -45,7 +45,7 @@ export const ItemsNewPage: React.FC = () => {
   return (
     <form h-screen flex flex-col onSubmit={onSubmit}>
       <Gradient>
-        <TopNav title="记一笔" icon={<Icon name="back" />} />
+        <TopNav title="记一笔" icon={<BackIcon />} />
       </Gradient>
       <Tabs
         className="grow-1 overflow-hidden"
