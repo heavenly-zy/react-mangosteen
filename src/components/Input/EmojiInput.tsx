@@ -9,11 +9,11 @@ interface Props {
 export const EmojiInput: React.FC<Props> = ({ value, onChange }) => {
   const [emojiKind, setEmojiKind] = useState(emojis[0].name)
   return (
-    <div b-1 b="#5C33BE" b-solid rounded-8px>
+    <div b-1 b="[--main-color]" b-solid rounded-8px>
       <div flex p-8px gap-x-16px overflow-auto text="#999" children-whitespace-nowrap>
         {emojis.map(emoji => (
           <span
-            className={emoji.name === emojiKind ? 'text-#5C33BE' : ''}
+            className={emoji.name === emojiKind ? 'text-[--main-color] font-bold' : ''}
             key={emoji.name}
             onClick={() => setEmojiKind(emoji.name)}
           >
@@ -47,7 +47,7 @@ export const EmojiInput: React.FC<Props> = ({ value, onChange }) => {
               <span
                 relative
                 key={char}
-                after="absolute left-0 top-0 w-full h-full b-1 b-solid b-#5C33BE rounded-4px"
+                after="absolute left-0 top-0 w-full h-full b-1 b-solid b-[--main-color] rounded-4px"
                 className={char === value ? 'after:content-[""]' : ''}
               >
                 {char}

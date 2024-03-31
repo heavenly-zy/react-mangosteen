@@ -48,7 +48,7 @@ export const ItemAmount: React.FC<Props> = ({ value, onChange, children }) => {
         <button type="button" row-start-4 col-start-1 row-end-5 col-end-3 onClick={() => append('0')}>0</button>
         <button type="button" row-start-4 col-start-3 row-end-5 col-end-4 onClick={() => append('.')}>.</button>
         <button type="button" row-start-1 col-start-4 row-end-3 col-end-5 onClick={() => setOutput('0')}>清空</button>
-        <button type="submit" row-start-3 col-start-4 row-end-5 col-end-5 bg="#5C33BE!" text-white>提交</button>
+        <button type="submit" row-start-3 col-start-4 row-end-5 col-end-5 bg="[--main-color]!" text-white>提交</button>
       </div>
     </>
   )
