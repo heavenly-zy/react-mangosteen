@@ -22,6 +22,11 @@ export default defineConfig({
     [/^c-w-(.+)$/, ([, d]) => ({ width: d }), { layer: 'components' }],
     [/^c-h-(.+)$/, ([, d]) => ({ height: d }), { layer: 'components' }],
     ['h-screen', { height: 'calc(100vh - var(--vh-offset, 0px))' }],
+    ['ellipsis', {
+      'overflow': 'hidden',
+      'text-overflow': 'ellipsis',
+      'white-space': 'nowrap',
+    }],
   ],
   safelist: [],
   presets: [

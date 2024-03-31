@@ -22,6 +22,7 @@ declare module 'react' {
     absolute?: boolean
     top?: string
     'active:opacity'?: string
+    ellipsis?: boolean
   }
   interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     w?: string

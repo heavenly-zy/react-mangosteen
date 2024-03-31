@@ -8,7 +8,7 @@ const createId = () => {
 }
 const createTag = (): Tag => ({
   id: createId(),
-  name: '标签',
+  name: faker.lorem.word(),
   sign: faker.internet.emoji(),
   user_id: 1,
   deleted_at: faker.date.past().toISOString(),

@@ -76,7 +76,7 @@ export const Tags: React.FC<Props> = ({ kind, value, onChange }) => {
       >
         {tag.sign}
       </span>
-      <span text-12px text="#666" text-center>{tag.name}</span>
+      <span text-12px text="#666" text-center ellipsis>{tag.name}</span>
     </LongPressable>
   )
 
