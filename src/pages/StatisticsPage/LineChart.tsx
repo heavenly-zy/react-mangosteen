@@ -9,9 +9,17 @@ interface Props {
 
 export const LineChart: React.FC<Props> = ({ className, items }) => {
   const chartEl = useRef<HTMLDivElement>(null)
+  const chartInstance = useRef<echarts.ECharts>()
+
   useEffect(() => {
     if (!chartEl.current) { return }
-    const chartInstance = echarts.init(chartEl.current)
+
+    // 如果已经存在 echarts 实例，则先进行销毁
+    chartInstance.current && chartInstance.current.dispose()
+
+    // 创建新的 echarts 实例
+    chartInstance.current = echarts.init(chartEl.current)
+
     const option: echarts.EChartsOption = {
       tooltip: {
         trigger: 'axis',
@@ -26,16 +34,25 @@ export const LineChart: React.FC<Props> = ({ className, items }) => {
       grid: { left: 16, top: 8, bottom: 24, right: 16 },
       xAxis: {
         type: 'category',
-        data: items?.map(i => i.date) ?? [],
         axisLabel: {
           formatter: (label: string) => label.slice(label.indexOf('-') + 1),
         },
       },
       yAxis: { type: 'value', axisLabel: { show: false } },
-      series: [{ data: items?.map(i => i.value) ?? [], type: 'line' }],
+      series: [{ type: 'line' }],
     }
-    chartInstance.setOption(option)
+
+    chartInstance.current.setOption(option)
+  }, [])
+
+  useEffect(() => {
+    const option: echarts.EChartsOption = {
+      xAxis: { data: items?.map(i => i.date) ?? [] },
+      series: [{ data: items?.map(i => i.value) ?? [] }],
+    }
+    chartInstance.current?.setOption(option)
   }, [items])
+
   return (
     <div ref={chartEl} className={className} />
   )
