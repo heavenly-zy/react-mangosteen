@@ -58,7 +58,16 @@ export const StatisticsPage: React.FC = () => {
       <Gradient>
         <TopNav title="统计" icon={<BackIcon />} />
       </Gradient>
-      <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
+      <TimeRangePicker
+        selected={timeRange}
+        onSelect={setTimeRange}
+        timeRanges={[
+          { key: 'thisMonth', text: '本月' },
+          { key: 'lastMonth', text: '上月' },
+          { key: 'twoMonthsAgo', text: '两个月前' },
+          { key: 'threeMonthsAgo', text: '三个月前' },
+        ]}
+      />
       <div p-16px>
         <Input
           type="select"
