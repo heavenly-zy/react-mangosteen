@@ -74,6 +74,14 @@ export class Time {
     return new Time(new Date(this.year, this.month - 1, 1))
   }
 
+  get dayCountOfMonth() {
+    return this.lastDayOfMonth.day
+  }
+
+  get clone() {
+    return new Time(this.#date)
+  }
+
   get parts(): Parts {
     const year = this.#date.getFullYear()
     const month = this.#date.getMonth() + 1
