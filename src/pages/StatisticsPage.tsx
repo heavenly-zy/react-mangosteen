@@ -12,7 +12,9 @@ import type { Time } from '@/lib/time'
 import { time } from '@/lib/time'
 import { ajax } from '@/lib/ajax'
 
-type Groups = { happen_at: string, amount: number }[]
+type DateGroups = { happen_at: string, amount: number }[]
+
+type TagGroups = { tag_id: number, tag: Tag, amount: number }[]
 
 const timeRangeMap: { [k in TimeRange]: number } = {
   thisYear: 0,
@@ -23,7 +25,8 @@ const timeRangeMap: { [k in TimeRange]: number } = {
   threeMonthsAgo: -3,
 }
 
-const generateApiUrl = ({ start, end, selectedKind, group_by }: {
+const generateApiUrl = ({ url = '/api/v1/items/summary', start, end, selectedKind, group_by }: {
+  url?: string
   start: Time
   end: Time
   selectedKind: Item['kind']
@@ -34,7 +37,7 @@ const generateApiUrl = ({ start, end, selectedKind, group_by }: {
   params.append('happened_before', String(end.format()))
   params.append('kind', String(selectedKind))
   params.append('group_by', group_by)
-  return `/api/v1/items/summary?${params.toString()}`
+  return `${url}?${params.toString()}`
 }
 
 export const StatisticsPage: React.FC = () => {
@@ -56,24 +59,18 @@ export const StatisticsPage: React.FC = () => {
       return { date, value: 0 }
     }), [start])
 
-  const { data: items } = useSWR(generateApiUrl({ start, end, selectedKind, group_by: 'happen_at' }), async (path: string) =>
-    (await ajax.get<{ groups: Groups, total: number }>(path)).data.groups
+  const { data: itemsGroupedByDate } = useSWR(generateApiUrl({ start, end, selectedKind, group_by: 'happen_at' }), async (path: string) =>
+    (await ajax.get<{ groups: DateGroups, total: number }>(path)).data.groups
       .map(({ happen_at, amount }) => ({ date: happen_at, value: amount })))
 
   const normalizedItems = defaultDailyItems?.map(defaultItem =>
-    items?.find(item => item.date === defaultItem.date) || defaultItem,
+    itemsGroupedByDate?.find(item => item.date === defaultItem.date) || defaultItem,
   )
 
-  const items2 = [
-    { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
-    { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
-    { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
-  ].map(item => ({ name: item.tag.name, value: item.amount }))
-  const items3 = [
-    { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
-    { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
-    { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
-  ].map(item => ({ name: item.tag.name, value: item.amount, sign: item.tag.sign }))
+  const { data: itemsGroupedByTag } = useSWR(generateApiUrl({ start, end, selectedKind, group_by: 'tag_id' }), async (path: string) =>
+    (await ajax.get<{ groups: TagGroups, total: number }>(path)).data.groups
+      .map(({ tag, amount }) =>
+        ({ name: tag.name, value: amount, sign: tag.sign })))
 
   return (
     <div>
@@ -102,8 +99,8 @@ export const StatisticsPage: React.FC = () => {
         />
       </div>
       <LineChart className="h-120px" items={normalizedItems} />
-      <PieChart className="mt-16px h-260px" items={items2} />
-      <Ranking className="mt-8px" items={items3} />
+      <PieChart className="mt-16px h-260px" items={itemsGroupedByTag} />
+      <Ranking className="mt-8px" items={itemsGroupedByTag} />
     </div>
   )
 }
